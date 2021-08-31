@@ -43,7 +43,7 @@
                     <Color r="1" g="0.75" b="0" a="0.2"/>
                 </Texture>
             </Layer>
-        </Layers>        
+        </Layers>
     </Frame>
 
     <Frame name="GlyphListFrame" parent="UIParent" inherits="BasicFrameTemplate" mixin="GlyphListMixin">
@@ -52,7 +52,7 @@
 			<Layer level="OVERLAY">
 				<FontString parentKey="TitleText" inherits="GameFontNormal" text="GlyphList">
 					<Anchors>
-						<Anchor point="TOP" x="-6" y="-5" />
+						<Anchor point="TOP" x="-12" y="-5" />
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -77,7 +77,7 @@
             </ScrollFrame>
         </Frames>
         <Scripts>
-            <OnLoad method="OnLoad"/>            
+            <OnLoad method="OnLoad"/>
             <OnShow method="OnShow"/>
             <OnHide method="OnHide"/>
             <OnEvent method="OnEvent"/>
@@ -86,7 +86,7 @@
             </OnDragStart>
             <OnDragStop>
                 self:StopMovingOrSizing()
-            </OnDragStop>            
+            </OnDragStop>
         </Scripts>
     </Frame>
 </Ui>

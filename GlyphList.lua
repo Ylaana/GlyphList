@@ -5,6 +5,7 @@ local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
 local conflicts = glyphData.Conflicts[playerClassID]
 local glyphedSpells = {}
+local spec = nil
 
 local function GetGlyphedSpells()
     local spellsWithGlyphs = {}
@@ -31,6 +32,22 @@ local function IsGlyphActive (tab, val)
     return false
 end
 
+local function GetCurrentSpec()
+    local currentSpec = GetSpecialization()
+    if currentSpec then
+        local currentSpecId, currentSpecName = GetSpecializationInfo(currentSpec)
+        local className = select(7, GetSpecializationInfoByID(currentSpecId))
+        return currentSpecName.." "..className
+    end
+end
+
+function SetTitleText()
+    spec = GetCurrentSpec()
+    if spec then
+        GlyphListFrame.TitleText:SetText("GlyphList - "..spec)
+    end
+end
+
 local wait = {}
 local cache_writer = CreateFrame('Frame')
 cache_writer:RegisterEvent("GET_ITEM_INFO_RECEIVED")
@@ -52,6 +69,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
         end
     elseif event == "PLAYER_LOGIN" then
         glyphedSpells = GetGlyphedSpells()
+        SetTitleText()
     end
 end)
 
@@ -122,7 +140,7 @@ function GlyphListMixin:OnLoad()
     self:SetUserPlaced(true)
     self:RegisterForDrag("LeftButton")
     self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
-        
+
     self.items = CreateGlyphList();
 
     self.ListScrollFrame.update = function() self:RefreshLayout(); end
@@ -145,6 +163,7 @@ function GlyphListMixin:OnEvent(event, ...)
         self:RefreshLayout();
     elseif event == "SPELLS_CHANGED" then
         glyphedSpells = GetGlyphedSpells()
+        SetTitleText()
         self.items = CreateGlyphList()
         self:RefreshLayout()
     end
@@ -163,11 +182,11 @@ function GlyphListMixin:RefreshLayout()
         button.GlyphConflict:Hide()
 
         if itemIndex <= #items then
-            local item = items[itemIndex];
+            local item = items[itemIndex]
             local isExclusive, isActive = IsGlyphExclusive(item)
-            button:SetID(itemIndex);
-            button.Icon:SetTexture(item.itemIcon or nil);
-            button.Text:SetText(item.itemLink or "");
+            button:SetID(itemIndex)
+            button.Icon:SetTexture(item.itemIcon or nil)
+            button.Text:SetText(item.itemLink or "")
 
             if item.isActive then
                 button.GlyphActive:Show()
@@ -175,27 +194,32 @@ function GlyphListMixin:RefreshLayout()
                 button.GlyphConflict:Show()
             end
 
-            button:SetScript("OnEnter",function()
-                GameTooltip:SetOwner(self,"ANCHOR_CURSOR")
+            button:SetScript("OnEnter", function()
+                GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
                 GameTooltip:SetHyperlink(item.itemLink)
                 GameTooltip:Show()
             end)
-            button:SetScript("OnLeave",function()
+            button:SetScript("OnLeave", function()
                 GameTooltip:Hide()
             end)
+            button:SetScript("OnClick", function(self, btn)
+                if btn == "LeftButton" and IsShiftKeyDown() then
+                    ChatEdit_InsertLink(item.itemLink)
+                end
+            end)
 
-            button:SetWidth(self.ListScrollFrame.scrollChild:GetWidth());
-            button:Show();
+            button:SetWidth(self.ListScrollFrame.scrollChild:GetWidth())
+            button:Show()
         else
-            button:Hide();
+            button:Hide()
         end
     end
 
-    local buttonHeight = self.ListScrollFrame.buttonHeight;
-    local totalHeight = #items * buttonHeight;
-    local shownHeight = #buttons * buttonHeight;
+    local buttonHeight = self.ListScrollFrame.buttonHeight
+    local totalHeight = #items * buttonHeight
+    local shownHeight = #buttons * buttonHeight
 
-    HybridScrollFrame_Update(self.ListScrollFrame, totalHeight, shownHeight);
+    HybridScrollFrame_Update(self.ListScrollFrame, totalHeight, shownHeight)
 end
 
 _G["SLASH_GlyphList1"] = "/gl"
