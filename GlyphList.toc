@@ -1,0 +1,7 @@
+## Interface: 90100
+## Title: GlyphList
+## Notes: A list of available glyphs for your class
+## Author: Ylaana
+## Version: v1.0.0
+
+GlyphList.xml

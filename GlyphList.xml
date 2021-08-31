@@ -1,0 +1,92 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
+
+    <Script file="GlyphData.lua"/>
+    <Script file="GlyphList.lua"/>
+
+    <Frame name="GlyphListItemTemplate" virtual="true">
+        <Size x="0" y="28"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background" setAllPoints="true">
+                    <Color r="0" g="0" b="0" a="0.2"/>
+                </Texture>
+                <Texture parentKey="GlyphActive" setAllPoints="true" file="Interface\Tooltips\UI-Tooltip-Background">
+                    <Gradient orientation="HORIZONTAL">
+                        <MinColor r="0.15" g="0.6" b="0.15" a="1"/>
+                        <MaxColor r="0.15" g="0.6" b="0.15" a="0"/>
+                    </Gradient>
+                </Texture>
+                <Texture parentKey="GlyphConflict" setAllPoints="true" file="Interface\Tooltips\UI-Tooltip-Background">
+                    <Gradient orientation="HORIZONTAL">
+                        <MinColor r="0.6" g="0.15" b="0.15" a="1"/>
+                        <MaxColor r="0.6" g="0.15" b="0.15" a="0"/>
+                    </Gradient>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Icon">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="8" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="HIGHLIGHT">
+                <Texture parentKey="Highlight" setAllPoints="true" alphaMode="ADD">
+                    <Color r="1" g="0.75" b="0" a="0.2"/>
+                </Texture>
+            </Layer>
+        </Layers>        
+    </Frame>
+
+    <Frame name="GlyphListFrame" parent="UIParent" inherits="BasicFrameTemplate" mixin="GlyphListMixin">
+        <Size x="300" y="255"/>
+        <Layers>
+			<Layer level="OVERLAY">
+				<FontString parentKey="TitleText" inherits="GameFontNormal" text="GlyphList">
+					<Anchors>
+						<Anchor point="TOP" x="-6" y="-5" />
+					</Anchors>
+				</FontString>
+			</Layer>
+        </Layers>
+        <Anchors>
+            <Anchor point="CENTER" x="0" y="0"/>
+        </Anchors>
+        <Frames>
+            <ScrollFrame parentKey="ListScrollFrame" inherits="HybridScrollFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-24"/>
+                    <Anchor point="BOTTOMRIGHT" x="-25" y="7"/>
+                </Anchors>
+                <Frames>
+                    <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="1" y="-16"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="1" y="12"/>
+                        </Anchors>
+                    </Slider>
+                </Frames>
+            </ScrollFrame>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>            
+            <OnShow method="OnShow"/>
+            <OnHide method="OnHide"/>
+            <OnEvent method="OnEvent"/>
+            <OnDragStart>
+                self:StartMoving()
+            </OnDragStart>
+            <OnDragStop>
+                self:StopMovingOrSizing()
+            </OnDragStop>            
+        </Scripts>
+    </Frame>
+</Ui>
