@@ -11,6 +11,6 @@ Please bear in mind that the list highlights glyphs for the active spec *only*. 
 
 Shift + left click can be used to link any listed glyph in chat.
 
-Use /gl to toggle list visibility.
+Use /gl or /glyphlist to toggle list visibility.
 
 Note: Although Druid "Marks" (of the Cheetah, Doe, Dolphin etc.) are included, the ability to see whether these forms have been unlocked has not (yet) been implemented. The only way to see this currently is to visit the barber shop in-game and look for the available customisations for each form.
