@@ -139,7 +139,9 @@ function GlyphListMixin:OnLoad()
     self:SetMovable(true)
     self:SetUserPlaced(true)
     self:RegisterForDrag("LeftButton")
+    self:RegisterEvent("ADDON_LOADED")
     self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
+    self:RegisterEvent("PLAYER_LOGOUT")
 
     self.items = CreateGlyphList();
 
@@ -158,14 +160,21 @@ function GlyphListMixin:OnHide()
     self:UnregisterEvent("SPELLS_CHANGED")
 end
 
-function GlyphListMixin:OnEvent(event, ...)
-    if event == "GET_ITEM_INFO_RECEIVED" then
+function GlyphListMixin:OnEvent(event, arg1)
+    if event == "ADDON_LOADED" and arg1 == "GlyphList" then
+        if GlyphListShown == nil then
+            GlyphListShown = true
+        end
+        self:SetShown(GlyphListShown)
+    elseif event == "GET_ITEM_INFO_RECEIVED" then
         self:RefreshLayout();
     elseif event == "SPELLS_CHANGED" then
         glyphedSpells = GetGlyphedSpells()
         SetTitleText()
         self.items = CreateGlyphList()
         self:RefreshLayout()
+    elseif event == "PLAYER_LOGOUT" then
+        GlyphListShown = self:IsShown()
     end
 end
 
@@ -223,6 +232,7 @@ function GlyphListMixin:RefreshLayout()
 end
 
 _G["SLASH_GlyphList1"] = "/gl"
+_G["SLASH_GlyphList2"] = "/glyphlist"
 SlashCmdList["GlyphList"] = function(msg)
     GlyphListFrame:SetShown(not GlyphListFrame:IsShown())
 end
