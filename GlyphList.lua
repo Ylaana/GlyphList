@@ -3,7 +3,7 @@ local glyphViewer, glyphData = ...
 local glyphList = {}
 local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
-local conflicts = glyphData.Conflicts[playerClassID]
+local conflicts = glyphData.Conflicts[playerClassID] or {}
 local glyphedSpells = {}
 local spec = nil
 
