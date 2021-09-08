@@ -32,6 +32,18 @@
                         <Anchor point="LEFT" x="0" y="0"/>
                     </Anchors>
                 </Texture>
+                <Texture parentKey="IconActive" file="Interface\Addons\GlyphList\textures\check.blp" alphaMode="BLEND">
+                    <Size x="20" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="2" y="0"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="IconConflict" file="Interface\Addons\GlyphList\textures\cross.blp" alphaMode="BLEND">
+                    <Size x="20" y="20"/>
+                    <Anchors>
+                        <Anchor point="LEFT" x="2" y="0"/>
+                    </Anchors>
+                </Texture>
                 <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT">
                     <Anchors>
                         <Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="8" y="0"/>

@@ -7,6 +7,8 @@ Highlight colours are as follows:
 - Green: Learned for the active spec
 - Red: Exclusive with a learned glyph
 
+(NEW!) Additionally, a check/cross icon is shown instead of the glyph icon to improve accessibility for colourblind users.
+
 Please bear in mind that the list highlights glyphs for the active spec *only*. If you have glyphed a certain spell in one spec and then switch to another spec where that spell is either not glyphed or unavailable, the highlighting is removed.
 
 Shift + left click can be used to link any listed glyph in chat.

@@ -187,7 +187,9 @@ function GlyphListMixin:RefreshLayout()
         local button = buttons[buttonIndex]
         local itemIndex = buttonIndex + offset
 
+        button.IconActive:Hide()
         button.GlyphActive:Hide()
+        button.IconConflict:Hide()
         button.GlyphConflict:Hide()
 
         if itemIndex <= #items then
@@ -198,8 +200,12 @@ function GlyphListMixin:RefreshLayout()
             button.Text:SetText(item.itemLink or "")
 
             if item.isActive then
+                button.Icon:SetTexture(nil)
+                button.IconActive:Show()
                 button.GlyphActive:Show()
             elseif isExclusive and isActive then
+                button.Icon:SetTexture(nil)
+                button.IconConflict:Show()
                 button.GlyphConflict:Show()
             end
 
