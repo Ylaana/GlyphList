@@ -5,7 +5,6 @@ local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
 local conflicts = glyphData.Conflicts[playerClassID] or {}
 local glyphedSpells = {}
-local spec = nil
 
 local function GetGlyphedSpells()
     local spellsWithGlyphs = {}
@@ -41,17 +40,9 @@ local function GetCurrentSpec()
     end
 end
 
-function SetTitleText()
-    spec = GetCurrentSpec()
-    if spec then
-        GlyphListFrame.TitleText:SetText("GlyphList - "..spec)
-    end
-end
-
 local wait = {}
 local cache_writer = CreateFrame('Frame')
 cache_writer:RegisterEvent("GET_ITEM_INFO_RECEIVED")
-cache_writer:RegisterEvent("PLAYER_LOGIN")
 cache_writer:SetScript("OnEvent", function(self, event, ...)
     if event == "GET_ITEM_INFO_RECEIVED" then
         local itemID = ...
@@ -67,9 +58,6 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
             }
             wait[itemID] = nil
         end
-    elseif event == "PLAYER_LOGIN" then
-        glyphedSpells = GetGlyphedSpells()
-        SetTitleText()
     end
 end)
 
@@ -140,6 +128,8 @@ function GlyphListMixin:OnLoad()
     self:SetUserPlaced(true)
     self:RegisterForDrag("LeftButton")
     self:RegisterEvent("ADDON_LOADED")
+    self:RegisterEvent("SPELLS_CHANGED")
+    self:RegisterEvent("PLAYER_LOGIN")
     self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
     self:RegisterEvent("PLAYER_LOGOUT")
 
@@ -151,13 +141,11 @@ function GlyphListMixin:OnLoad()
 end
 
 function GlyphListMixin:OnShow()
-    self:RegisterEvent("SPELLS_CHANGED")
     HybridScrollFrame_CreateButtons(self.ListScrollFrame, "GlyphListItemTemplate");
     self:RefreshLayout();
 end
 
 function GlyphListMixin:OnHide()
-    self:UnregisterEvent("SPELLS_CHANGED")
 end
 
 function GlyphListMixin:OnEvent(event, arg1)
@@ -168,13 +156,20 @@ function GlyphListMixin:OnEvent(event, arg1)
         self:SetShown(GlyphListShown)
     elseif event == "GET_ITEM_INFO_RECEIVED" then
         self:RefreshLayout();
-    elseif event == "SPELLS_CHANGED" then
+    elseif event == "SPELLS_CHANGED" or event == "PLAYER_LOGIN" then
         glyphedSpells = GetGlyphedSpells()
-        SetTitleText()
+        self:SetTitleText()
         self.items = CreateGlyphList()
         self:RefreshLayout()
     elseif event == "PLAYER_LOGOUT" then
         GlyphListShown = self:IsShown()
+    end
+end
+
+function GlyphListMixin:SetTitleText()
+    local specText = GetCurrentSpec()
+    if specText then
+        self.TitleText:SetText("GlyphList - "..specText)
     end
 end
 
