@@ -1,10 +1,20 @@
 local glyphViewer, glyphData = ...
 
 local glyphList = {}
+local locale = GetLocale()
 local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
 local conflicts = glyphData.Conflicts[playerClassID] or {}
 local glyphedSpells = {}
+
+local function StandardiseGlyphName(glyphName)
+    if locale == "frFR" then
+        --fixing inconsistencies with apostrophes and letter casing on the French client
+        return glyphName:gsub("’", "'"):lower()
+    else
+        return glyphName
+    end
+end
 
 local function GetGlyphedSpells()
     local spellsWithGlyphs = {}
@@ -13,7 +23,7 @@ local function GetGlyphedSpells()
         for j = offset+1, offset+numSlots do
             local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
             if HasAttachedGlyph(spellID) then
-                spellsWithGlyphs[#spellsWithGlyphs+1] = GetCurrentGlyphNameForSpell(spellID)
+                spellsWithGlyphs[#spellsWithGlyphs+1] = StandardiseGlyphName(GetCurrentGlyphNameForSpell(spellID))
             end
         end
     end
@@ -48,7 +58,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
         local itemID = ...
         if wait[itemID] then
             local itemName, itemLink = GetItemInfo(itemID)
-            local isActive = IsGlyphActive(glyphedSpells, itemName)
+            local isActive = IsGlyphActive(glyphedSpells, StandardiseGlyphName(itemName))
             glyphList[#glyphList+1] = {
                 itemID=itemID,
                 itemIcon=GetItemIcon(itemID),
@@ -68,7 +78,7 @@ local function CreateGlyphList()
         local itemID = glyphData.Glyphs[playerClassID][i]
         local itemName, itemLink = GetItemInfo(itemID)
         if itemName then
-            local isActive = IsGlyphActive(glyphedSpells, itemName)
+            local isActive = IsGlyphActive(glyphedSpells, StandardiseGlyphName(itemName))
             glyphList[#glyphList+1] = {
                 itemID=itemID,
                 itemIcon=GetItemIcon(itemID),
