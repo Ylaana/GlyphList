@@ -1,29 +1,20 @@
 local glyphViewer, glyphData = ...
 
 local glyphList = {}
-local locale = GetLocale()
 local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
 local conflicts = glyphData.Conflicts[playerClassID] or {}
 local glyphedSpells = {}
 
-local function StandardiseGlyphName(glyphName)
-    if locale == "frFR" then
-        --fixing inconsistencies with apostrophes and letter casing on the French client
-        return glyphName:gsub("’", "'"):lower()
-    else
-        return glyphName
-    end
-end
-
 local function GetGlyphedSpells()
     local spellsWithGlyphs = {}
-    for i = 1, GetNumSpellTabs() do
+    for i = 2, GetNumSpellTabs() do
         local _, _, offset, numSlots = GetSpellTabInfo(i)
         for j = offset+1, offset+numSlots do
-            local _, spellID = GetSpellBookItemInfo(j, BOOKTYPE_SPELL)
-            if HasAttachedGlyph(spellID) then
-                spellsWithGlyphs[#spellsWithGlyphs+1] = StandardiseGlyphName(GetCurrentGlyphNameForSpell(spellID))
+            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
+            local glyphId = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
+            if glyphId ~= 0 then
+                spellsWithGlyphs[#spellsWithGlyphs+1] = glyphId
             end
         end
     end
@@ -58,7 +49,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
         local itemID = ...
         if wait[itemID] then
             local itemName, itemLink = GetItemInfo(itemID)
-            local isActive = IsGlyphActive(glyphedSpells, StandardiseGlyphName(itemName))
+            local isActive = IsGlyphActive(glyphedSpells, glyphData.Glyphs[playerClassID][itemID])
             glyphList[#glyphList+1] = {
                 itemID=itemID,
                 itemIcon=GetItemIcon(itemID),
@@ -74,11 +65,10 @@ end)
 local function CreateGlyphList()
     --reset glyph list data!
     glyphList = {}
-    for i = 1, #glyphData.Glyphs[playerClassID] do
-        local itemID = glyphData.Glyphs[playerClassID][i]
+    for itemID, glyphID in pairs(glyphData.Glyphs[playerClassID]) do
         local itemName, itemLink = GetItemInfo(itemID)
         if itemName then
-            local isActive = IsGlyphActive(glyphedSpells, StandardiseGlyphName(itemName))
+            local isActive = IsGlyphActive(glyphedSpells, glyphID)
             glyphList[#glyphList+1] = {
                 itemID=itemID,
                 itemIcon=GetItemIcon(itemID),
