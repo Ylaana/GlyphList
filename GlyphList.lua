@@ -8,13 +8,26 @@ local glyphedSpells = {}
 
 local function GetGlyphedSpells()
     local spellsWithGlyphs = {}
-    for i = 2, GetNumSpellTabs() do
-        local _, _, offset, numSlots = GetSpellTabInfo(i)
-        for j = offset+1, offset+numSlots do
-            local spellLink = GetSpellLink(j, BOOKTYPE_SPELL)
-            local glyphId = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
-            if glyphId ~= 0 then
-                spellsWithGlyphs[#spellsWithGlyphs+1] = glyphId
+    for tabIndex = 2, GetNumSpellTabs() do
+        local _, _, offset, numSlots = GetSpellTabInfo(tabIndex)
+        for slotIndex = offset+1, offset+numSlots do
+            local slotType, actionID = GetSpellBookItemInfo(slotIndex, BOOKTYPE_SPELL)
+            if slotType == "FLYOUT" then
+                local _, _, numSpells = GetFlyoutInfo(actionID)
+                for spellIndex = 1, numSpells do
+                    local flyoutSpellID = GetFlyoutSlotInfo(actionID, spellIndex)
+                    local spellLink = GetSpellLink(flyoutSpellID)
+                    local glyphId = tonumber(spellLink:match("%b::(%d+)"))
+                    if glyphId ~= 0 then
+                        spellsWithGlyphs[#spellsWithGlyphs+1] = glyphId
+                    end
+                end
+            else
+                local spellLink = GetSpellLink(actionID)
+                local glyphId = tonumber(spellLink:match("%b::(%d+)"))
+                if glyphId ~= 0 then
+                    spellsWithGlyphs[#spellsWithGlyphs+1] = glyphId
+                end
             end
         end
     end
@@ -49,7 +62,8 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
         local itemID = ...
         if wait[itemID] then
             local itemName, itemLink = GetItemInfo(itemID)
-            local isActive = IsGlyphActive(glyphedSpells, glyphData.Glyphs[playerClassID][itemID])
+            local glyphID = glyphData.Glyphs[playerClassID][itemID]
+            local isActive = IsGlyphActive(glyphedSpells, glyphID)
             glyphList[#glyphList+1] = {
                 itemID=itemID,
                 itemIcon=GetItemIcon(itemID),
