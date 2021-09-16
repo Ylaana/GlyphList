@@ -23,7 +23,8 @@ local function GetGlyphedSpells()
                     end
                 end
             else
-                local spellLink = GetSpellLink(actionID)
+                local _, _, spellID = GetSpellBookItemName(slotIndex, BOOKTYPE_SPELL)
+                local spellLink = GetSpellLink(spellID)
                 local glyphId = tonumber(spellLink:match("%b::(%d+)"))
                 if glyphId ~= 0 then
                     spellsWithGlyphs[#spellsWithGlyphs+1] = glyphId
