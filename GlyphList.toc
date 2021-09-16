@@ -2,7 +2,7 @@
 ## Title: GlyphList
 ## Notes: A list of available glyphs for your class
 ## Author: Ylaana
-## Version: v1.2.4
+## Version: v1.2.5
 ## SavedVariablesPerCharacter: GlyphListShown
 
 GlyphList.xml
