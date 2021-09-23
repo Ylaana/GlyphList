@@ -62,9 +62,9 @@
         <Size x="300" y="255"/>
         <Layers>
 			<Layer level="OVERLAY">
-				<FontString parentKey="TitleText" inherits="GameFontNormal" text="GlyphList">
+				<FontString parentKey="TitleText" inherits="GameFontNormal" wordwrap="false">
 					<Anchors>
-						<Anchor point="TOP" x="-12" y="-5" />
+						<Anchor point="TOPLEFT" x="5" y="-5" />
 					</Anchors>
 				</FontString>
 			</Layer>
@@ -73,6 +73,24 @@
             <Anchor point="CENTER" x="0" y="0"/>
         </Anchors>
         <Frames>
+            <CheckButton parentKey="ShowAllButton" name="ShowAllButton" inherits="UICheckButtonTemplate" enableMouse="true">
+                <Size>
+                    <AbsDimension x="20" y="20" />
+                </Size>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <FontString name="CheckboxText" inherits="GameFontNormalSmall" text="Show All">
+                            <Anchors>
+                                <Anchor point="LEFT" relativePoint="RIGHT" x="2" y="1" />
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-72" y="-2" />
+                </Anchors>
+                <HighlightColor r="0.72" g="0.53" b="0.04" />
+            </CheckButton>
             <ScrollFrame parentKey="ListScrollFrame" inherits="HybridScrollFrameTemplate">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="4" y="-24"/>

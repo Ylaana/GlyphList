@@ -9,7 +9,9 @@ Highlight colours are as follows:
 
 Additionally, a check/cross icon is shown instead of the glyph icon to improve accessibility for colourblind users.
 
-Please bear in mind that the list highlights glyphs for the active spec *only*. If you have glyphed a certain spell in one spec and then switch to another spec where that spell is either not glyphed or unavailable, the highlighting is removed.
+Glyphs are initially displayed depending on whether the associated spells or abilities have been learned or talented; click the "Show All" checkbox to show any hidden glyphs.
+
+Please bear in mind that the list highlights glyphs for the active spec *only*. If you have glyphed a certain spell in one spec and then switch to another spec where that spell (if available) is not glyphed, the highlighting is removed.
 
 Shift + left click can be used to link any listed glyph in chat.
 
