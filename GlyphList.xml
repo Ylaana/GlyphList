@@ -44,9 +44,9 @@
                         <Anchor point="LEFT" x="2" y="0"/>
                     </Anchors>
                 </Texture>
-                <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT">
+                <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordwrap="false">
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="8" y="0"/>
+                        <Anchor point="LEFT" relativeKey="$parent.Icon" relativePoint="RIGHT" x="5" y="0"/>
                     </Anchors>
                 </FontString>
             </Layer>
@@ -61,34 +61,20 @@
     <Frame name="GlyphListFrame" parent="UIParent" inherits="BasicFrameTemplate" mixin="GlyphListMixin">
         <Size x="300" y="255"/>
         <Layers>
-			<Layer level="OVERLAY">
-				<FontString parentKey="TitleText" inherits="GameFontNormal" wordwrap="false">
-					<Anchors>
-						<Anchor point="TOPLEFT" x="5" y="-5" />
-					</Anchors>
-				</FontString>
-			</Layer>
+            <Layer level="ARTWORK">
+                <FontString parentKey="TitleText" inherits="GameFontNormal" wordwrap="false" justifyH="LEFT" justifyV="MIDDLE">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="4" y="-5" />
+                    </Anchors>
+                </FontString>
+            </Layer>
         </Layers>
         <Anchors>
             <Anchor point="CENTER" x="0" y="0"/>
         </Anchors>
         <Frames>
-            <CheckButton parentKey="ShowAllButton" name="ShowAllButton" inherits="UICheckButtonTemplate" enableMouse="true">
-                <Size>
-                    <AbsDimension x="20" y="20" />
-                </Size>
-                <Layers>
-                    <Layer level="OVERLAY">
-                        <FontString name="CheckboxText" inherits="GameFontNormalSmall" text="Show All">
-                            <Anchors>
-                                <Anchor point="LEFT" relativePoint="RIGHT" x="2" y="1" />
-                            </Anchors>
-                        </FontString>
-                    </Layer>
-                </Layers>
-                <Anchors>
-                    <Anchor point="TOPRIGHT" x="-72" y="-2" />
-                </Anchors>
+            <CheckButton parentKey="ViewAllButton" inherits="UICheckButtonTemplate" enableMouse="true">
+                <Size x="20" y="20" />
                 <HighlightColor r="0.72" g="0.53" b="0.04" />
             </CheckButton>
             <ScrollFrame parentKey="ListScrollFrame" inherits="HybridScrollFrameTemplate">

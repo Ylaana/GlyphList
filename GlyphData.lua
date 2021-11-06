@@ -1,4 +1,4 @@
-local glyphViewer, glyphData = ...
+local _, glyphData = ...
 
 glyphData.Glyphs = {
     --[glyph itemID] = { specID, spellLink glyphID, actionID }
@@ -128,7 +128,9 @@ glyphData.Glyphs = {
         [136826] = { 105, 1221,  33763 }, --Glyph of Autumnal Bloom
         [44922]  = {
             { 102,  613,  24858 }, --Glyph of Stars (Balance)
-            {   0,  613, 197625 }, --Glyph of Stars (Balance Affinity)
+            { 103,  613, 197625 }, --Glyph of Stars (Balance Affinity)
+            { 104,  613, 197625 }, --Glyph of Stars (Balance Affinity)
+            { 105,  613, 197625 }, --Glyph of Stars (Balance Affinity)
         },
         [184100] = {   0, 1421, 276029 }, --Glyph of the Aerial Chameleon
         [184097] = {   0, 1420, 276012 }, --Glyph of the Aquatic Chameleon
@@ -137,16 +139,24 @@ glyphData.Glyphs = {
         [118061] = { 102, 1206, 191034 }, --Glyph of the Sun
         [184096] = {   0, 1419,    783 }, --Glyph of the Swift Chameleon
         [43334]  = {   0,  432,   5487 }, --Glyph of the Ursol Chameleon
+        [188164] = { 105, 1423, 145205 }, --Glyph of the Wild Mushroom
         [143750] = { 105, 1288,  33763 }, --Glyph of Twilight Bloom
         --There is currently no API information regarding marks/form customisations
         --Needs thinking about implementation of the below
         [89868]  = { 0, 0, 0 }, --Mark of the Cheetah
         [140630] = { 0, 0, 0 }, --Mark of the Doe
         [162022] = { 0, 0, 0 }, --Mark of the Dolphin
+        [187933] = { 0, 0, 0 }, --Mark of the Duskwing Raven
+        [187887] = { 0, 0, 0 }, --Mark of the Gloomstalker Dredbat
         [162029] = { 0, 0, 0 }, --Mark of the Humble Flyer
+        [187934] = { 0, 0, 0 }, --Mark of the Midnight Runestag
         [40919]  = { 0, 0, 0 }, --Mark of the Orca
+        [187931] = { 0, 0, 0 }, --Mark of the Regal Dredbat
+        [187936] = { 0, 0, 0 }, --Mark of the Sable Ardenmoth
         [129021] = { 0, 0, 0 }, --Mark of the Sentinel
+        [187888] = { 0, 0, 0 }, --Mark of the Shimmering Ardenmoth
         [162027] = { 0, 0, 0 }, --Mark of the Tideskipper
+        [187884] = { 0, 0, 0 }, --Mark of the Twilight Runestag
     },
     [12] = { --Demon Hunter
         --577 Havoc, 581 Vengeance

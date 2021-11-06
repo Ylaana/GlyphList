@@ -1,4 +1,5 @@
-local glyphViewer, glyphData = ...
+local _, glyphData = ...
+local L = glyphData.L
 
 local glyphList = {}
 local playerLoc = PlayerLocation:CreateFromUnit("player")
@@ -7,6 +8,21 @@ local playerSpecID = 0
 local conflicts = glyphData.Conflicts[playerClassID] or {}
 local activeSpells = {}
 local glyphedSpells = {}
+local viewAllWidth
+
+-- Register in the Interface Addon Options GUI
+glyphList.Config = CreateFrame("Frame", "GlyphListConfigPanel", UIParent);
+glyphList.Config.name = "GlyphList";
+InterfaceOptions_AddCategory(glyphList.Config);
+
+local configTitle = glyphList.Config:CreateFontString("ConfigTitle", "OVERLAY", "GameFontNormalLarge")
+configTitle:SetPoint("TOPLEFT", "GlyphListConfigPanel", "TOPLEFT", 15, -15)
+configTitle:SetText("GlyphList")
+
+local ShowMarksButton = CreateFrame("CheckButton", "ShowMarksButton", glyphList.Config, "InterfaceOptionsCheckButtonTemplate")
+ShowMarksButton:SetPoint("TOPLEFT", "ConfigTitle", "BOTTOMLEFT", 0, -10)
+ShowMarksButton.Text:SetText("Show Barber Shop shapeshift form customizations (Druid only)")
+ShowMarksButton.Text:SetWidth(400)
 
 local function FindValueInArray (tab, val)
     if (#tab > 0) then
@@ -20,7 +36,7 @@ local function FindValueInArray (tab, val)
 end
 
 local wait = {}
-local cache_writer = CreateFrame('Frame')
+local cache_writer = CreateFrame("Frame")
 cache_writer:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 cache_writer:SetScript("OnEvent", function(self, event, ...)
     if event == "GET_ITEM_INFO_RECEIVED" then
@@ -99,15 +115,19 @@ local function BuildGlyphData(itemID, glyphInfo)
     local actionID = glyphInfo[3]
     local isAvailable
 
-    if ShowAllGlyphs == true then
+    --actionID == 0 is only true for druid shapeshift marks
+    if ShowMarks == false and actionID == 0 then
+        isAvailable = false
+    elseif (ShowMarks == true and actionID == 0) and ShowAllGlyphs == false then
+        isAvailable = true
+    elseif ShowAllGlyphs == true then
         isAvailable = true
     else
         isAvailable = FindValueInArray(activeSpells, actionID)
     end
 
     --glyphSpecID == 0 if the glyph can be used by all specs
-    --actionID == 0 is only true for druid shapeshift marks
-    if (glyphSpecID == 0 or glyphSpecID == playerSpecID) and (isAvailable or actionID == 0) then
+    if (glyphSpecID == 0 or glyphSpecID == playerSpecID) and isAvailable then
         local itemName, itemLink = GetItemInfo(itemID)
         if itemName then
             local isActive = FindValueInArray(glyphedSpells, glyphID)
@@ -197,10 +217,16 @@ function GlyphListMixin:OnLoad()
     self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
     self:RegisterEvent("PLAYER_LOGOUT")
 
-    self.items = CreateGlyphList()
+    -- set localised text for "view all" checkbox
+    local text = self.ViewAllButton:CreateFontString(nil, "ARTWORK")
+    text:SetPoint("LEFT", self.ViewAllButton, "RIGHT", 2, 0)
+    text:SetFontObject("GameFontNormalSmall")
+    text:SetText(L["View all"])
+    viewAllWidth = (text:GetWidth() + 30)
+    self.ViewAllButton:SetPoint("TOPRIGHT", viewAllWidth * -1, -1)
 
-    self.ShowAllButton:SetScript("OnClick", function()
-        if self.ShowAllButton:GetChecked() then
+    self.ViewAllButton:SetScript("OnClick", function()
+        if self.ViewAllButton:GetChecked() then
             ShowAllGlyphs = true
             self.items = CreateGlyphList()
             self:RefreshLayout()
@@ -210,6 +236,20 @@ function GlyphListMixin:OnLoad()
             self:RefreshLayout()
         end
     end)
+
+    ShowMarksButton:SetScript("OnClick", function()
+        if ShowMarksButton:GetChecked() then
+            ShowMarks = true
+            self.items = CreateGlyphList()
+            self:RefreshLayout()
+        else
+            ShowMarks = false
+            self.items = CreateGlyphList()
+            self:RefreshLayout()
+        end
+    end)
+
+    self.items = CreateGlyphList()
 
     self.ListScrollFrame.update = function() self:RefreshLayout() end
 
@@ -232,8 +272,12 @@ function GlyphListMixin:OnEvent(event, arg1)
         if ShowAllGlyphs == nil then
             ShowAllGlyphs = false
         end
+        if ShowMarks == nil then
+            ShowMarks = true
+        end
         self:SetShown(GlyphListShown)
-        self.ShowAllButton:SetChecked(ShowAllGlyphs)
+        self.ViewAllButton:SetChecked(ShowAllGlyphs)
+        ShowMarksButton:SetChecked(ShowMarks)
     elseif event == "GET_ITEM_INFO_RECEIVED" then
         self:RefreshLayout()
     elseif event == "SPELLS_CHANGED" or event == "PLAYER_LOGIN" then
@@ -243,7 +287,8 @@ function GlyphListMixin:OnEvent(event, arg1)
         self:RefreshLayout()
     elseif event == "PLAYER_LOGOUT" then
         GlyphListShown = self:IsShown()
-        ShowAllGlyphs = self.ShowAllButton:GetChecked()
+        ShowAllGlyphs = self.ViewAllButton:GetChecked()
+        ShowMarks = ShowMarksButton:GetChecked()
     end
 end
 
@@ -251,7 +296,7 @@ function GlyphListMixin:SetTitleText()
     local specText = GetCurrentSpec()
     if specText then
         self.TitleText:SetText("[GL] "..specText)
-        self.TitleText:SetWidth(205)
+        self.TitleText:SetWidth(280 - viewAllWidth)
     end
 end
 
@@ -275,7 +320,7 @@ function GlyphListMixin:RefreshLayout()
             button:SetID(itemIndex)
             button.Icon:SetTexture(item.itemIcon or nil)
             button.Text:SetText(item.itemLink or "")
-            button.Text:SetWidth(230)
+            button.Text:SetWidth(240)
 
             if item.isActive then
                 button.Icon:SetTexture(nil)
@@ -317,6 +362,15 @@ end
 
 _G["SLASH_GlyphList1"] = "/gl"
 _G["SLASH_GlyphList2"] = "/glyphlist"
-SlashCmdList["GlyphList"] = function(msg)
-    GlyphListFrame:SetShown(not GlyphListFrame:IsShown())
+local function handler(msg, editBox)
+    if msg == "" then
+        GlyphListFrame:SetShown(not GlyphListFrame:IsShown())
+    elseif msg == "show" then
+        GlyphListFrame:SetShown(true)
+    elseif msg == "hide" then
+        GlyphListFrame:SetShown(false)
+    elseif msg == "config" then
+        InterfaceOptionsFrame_OpenToCategory("GlyphList")
+    end
 end
+SlashCmdList["GlyphList"] = handler

@@ -1,8 +1,9 @@
-## Interface: 90100
+## Interface: 90105
 ## Title: GlyphList
 ## Notes: A list of available glyphs for your class
 ## Author: Ylaana
-## Version: v1.3.0-beta
-## SavedVariablesPerCharacter: GlyphListShown, ShowAllGlyphs
+## Version: v1.3.0
+## SavedVariablesPerCharacter: GlyphListShown, ShowAllGlyphs, ShowMarks
 
+Localization.lua
 GlyphList.xml
