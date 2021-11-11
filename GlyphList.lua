@@ -21,8 +21,8 @@ configTitle:SetText("GlyphList")
 
 local ShowMarksButton = CreateFrame("CheckButton", "ShowMarksButton", glyphList.Config, "InterfaceOptionsCheckButtonTemplate")
 ShowMarksButton:SetPoint("TOPLEFT", "ConfigTitle", "BOTTOMLEFT", 0, -10)
-ShowMarksButton.Text:SetText("Show Barber Shop shapeshift form customizations (Druid only)")
-ShowMarksButton.Text:SetWidth(400)
+ShowMarksButton.Text:SetText(L["SHOW_MARKS"])
+ShowMarksButton.Text:SetWidth(550)
 
 local function FindValueInArray (tab, val)
     if (#tab > 0) then
@@ -221,7 +221,7 @@ function GlyphListMixin:OnLoad()
     local text = self.ViewAllButton:CreateFontString(nil, "ARTWORK")
     text:SetPoint("LEFT", self.ViewAllButton, "RIGHT", 2, 0)
     text:SetFontObject("GameFontNormalSmall")
-    text:SetText(L["View all"])
+    text:SetText(L["VIEW_ALL"])
     viewAllWidth = (text:GetWidth() + 30)
     self.ViewAllButton:SetPoint("TOPRIGHT", viewAllWidth * -1, -1)
 
