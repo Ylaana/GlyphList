@@ -77,7 +77,9 @@ glyphData.Glyphs = {
         [104127] = {   0, 1091,   2008 }, --Glyph of Lingering Ancestors
         [137288] = {   0, 1243, 198103 }, --Glyph of Pebbles
         [104126] = { 263, 1090,  51533 }, --Glyph of Spirit Raptors
+        [190378] = {   0, 1426,   2645 }, --Glyph of the Spectral Lupine
         [137287] = {   0, 1242,   2645 }, --Glyph of the Spectral Raptor
+        [190380] = {   0, 1427,   2645 }, --Glyph of the Spectral Vulpine
         [43386]  = {   0,  471,   2645 }, --Glyph of the Spectral Wolf
     },
     [8] = { --Mage
@@ -226,7 +228,9 @@ glyphData.Conflicts = {
     },
     [7] = {
         {
+            190378, --Glyph of the Spectral Lupine
             137287, --Glyph of the Spectral Raptor
+            190380, --Glyph of the Spectral Vulpine
             43386,  --Glyph of the Spectral Wolf
         },
     },
