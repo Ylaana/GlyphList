@@ -29,19 +29,19 @@
                 <Texture parentKey="Icon">
                     <Size x="24" y="24"/>
                     <Anchors>
-                        <Anchor point="LEFT" x="0" y="0"/>
+                        <Anchor point="LEFT" x="3" y="0"/>
                     </Anchors>
                 </Texture>
                 <Texture parentKey="IconActive" file="Interface\Addons\GlyphList\textures\check.blp" alphaMode="BLEND">
                     <Size x="20" y="20"/>
                     <Anchors>
-                        <Anchor point="LEFT" x="2" y="0"/>
+                        <Anchor point="LEFT" x="5" y="0"/>
                     </Anchors>
                 </Texture>
                 <Texture parentKey="IconConflict" file="Interface\Addons\GlyphList\textures\cross.blp" alphaMode="BLEND">
                     <Size x="20" y="20"/>
                     <Anchors>
-                        <Anchor point="LEFT" x="2" y="0"/>
+                        <Anchor point="LEFT" x="5" y="0"/>
                     </Anchors>
                 </Texture>
                 <FontString parentKey="Text" inherits="GameFontNormal" justifyH="LEFT" wordwrap="false">
@@ -58,13 +58,22 @@
         </Layers>
     </Frame>
 
-    <Frame name="GlyphListFrame" parent="UIParent" inherits="BasicFrameTemplate" mixin="GlyphListMixin">
-        <Size x="300" y="255"/>
+    <Frame name="GlyphListFrame" parent="UIParent" enableMouse="true" inherits="ButtonFrameTemplate" mixin="GlyphListMixin">
+        <Size x="350" y="425"/>
         <Layers>
-            <Layer level="ARTWORK">
-                <FontString parentKey="TitleText" inherits="GameFontNormal" wordwrap="false" justifyH="LEFT" justifyV="MIDDLE">
+            <Layer level="OVERLAY" textureSubLevel="-1">
+                <Texture name="icon" file="Interface\Addons\GlyphList\textures\glyphlist.blp">
+                    <Size x="60" y="60"/>
                     <Anchors>
-                        <Anchor point="TOPLEFT" x="4" y="-5" />
+                        <Anchor point="TOPLEFT" x="-5" y="8" />
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="TitleText" inherits="GameFontNormal" wordwrap="false">
+                    <Size x="250" y="16"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="3" y="-16"/>
                     </Anchors>
                 </FontString>
             </Layer>
@@ -73,24 +82,50 @@
             <Anchor point="CENTER" x="0" y="0"/>
         </Anchors>
         <Frames>
-            <CheckButton parentKey="ViewAllButton" inherits="UICheckButtonTemplate" enableMouse="true">
-                <Size x="20" y="20" />
-                <HighlightColor r="0.72" g="0.53" b="0.04" />
-            </CheckButton>
-            <ScrollFrame parentKey="ListScrollFrame" inherits="HybridScrollFrameTemplate">
+            <CheckButton parentKey="ViewAllButton" inherits="SettingsCheckBoxControlTemplate" enableMouse="true"></CheckButton>
+            <Button name="GlyphListFrameTab1" inherits="PanelTopTabButtonTemplate" text="GLYPHS" id="1">
                 <Anchors>
-                    <Anchor point="TOPLEFT" x="4" y="-24"/>
-                    <Anchor point="BOTTOMRIGHT" x="-25" y="7"/>
+                    <Anchor point="TOPLEFT" x="51" y="-28"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        self:GetParent():SelectTab(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button name="GlyphListFrameTab2" parentKey="GlyphListFrameTab2" inherits="PanelTopTabButtonTemplate" text="MARKS" id="2">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="GlyphListFrameTab1" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        self:GetParent():SelectTab(self);
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <ScrollFrame name="ListScrollFrame" parentKey="ListScrollFrame" inherits="HybridScrollFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="8" y="-65"/>
+                    <Anchor point="BOTTOMRIGHT" x="-33" y="30"/>
                 </Anchors>
                 <Frames>
-                    <Slider parentKey="scrollBar" inherits="HybridScrollBarTemplate">
+                    <Slider name="ListScrollBar" parentKey="ListScrollBar" inherits="HybridScrollBarTemplate">
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="1" y="-16"/>
-                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="1" y="12"/>
+                            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="3" y="-15"/>
+                            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="3" y="14"/>
                         </Anchors>
                     </Slider>
                 </Frames>
             </ScrollFrame>
+            <Button name="RefreshButton" parentKey="RefreshButton" inherits="UIPanelButtonTemplate" text="REFRESH" hidden="true">
+                <Size x="80" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-5" y="4"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick function="RefreshButton_OnClick"/>
+                </Scripts>
+            </Button>
         </Frames>
         <Scripts>
             <OnLoad method="OnLoad"/>

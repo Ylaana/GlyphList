@@ -1,9 +1,10 @@
-## Interface: 90205
+## Interface: 100002
 ## Title: GlyphList
 ## Notes: A list of available glyphs for your class
 ## Author: Ylaana
-## Version: v1.3.2
-## SavedVariablesPerCharacter: GlyphListShown, ShowAllGlyphs, ShowMarks
+## Version: v1.4.0
+## SavedVariablesPerCharacter: AddonShown, ShowAllGlyphs
+## SavedVariables: DruidForms
 
 Localization.lua
 GlyphList.xml
