@@ -62,7 +62,7 @@
         <Size x="350" y="425"/>
         <Layers>
             <Layer level="OVERLAY" textureSubLevel="-1">
-                <Texture name="icon" file="Interface\Addons\GlyphList\textures\glyphlist.blp">
+                <Texture name="icon" file="Interface\Addons\GlyphList\textures\logo-round.blp">
                     <Size x="60" y="60"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" x="-5" y="8" />

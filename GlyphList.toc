@@ -1,8 +1,9 @@
-## Interface: 100002
+## Interface: 100100
 ## Title: GlyphList
 ## Notes: A list of available glyphs for your class
 ## Author: Ylaana
-## Version: v1.4.0
+## Version: v1.4.1
+## IconTexture: Interface\AddOns\GlyphList\textures\logo-square
 ## SavedVariablesPerCharacter: AddonShown, ShowAllGlyphs
 ## SavedVariables: DruidForms
 

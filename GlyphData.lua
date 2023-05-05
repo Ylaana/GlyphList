@@ -11,6 +11,7 @@ glyphData.Glyphs = {
         [43400]  = {  0,  488,  34428 }, --Glyph of Mighty Victory
         [137188] = {  0, 1223,   3411 }, --Glyph of the Blazing Savior
         [85221]  = {  0, 1020,    100 }, --Glyph of the Blazing Trail
+        [203763] = {  0, 1432,  57755 }, --Glyph of the Heaved Armament
         [104138] = { 72, 1101,   1719 }, --Glyph of the Weaponmaster
         [49084]  = { 73,  851,   6343 }, --Glyph of Thunder Strike
     },
@@ -161,6 +162,10 @@ glyphData.Glyphs = {
         },
         [139438] = { 0, 1280, 188501 }, --Glyph of Shadow-Enemies
         [139436] = { 0, 1278, 131347 }, --Glyph of Tattered Wings
+        [203762] = {
+            { 577, 1431, 185123 }, --Glyph of the Chosen Glaive (H)
+            { 581, 1431, 204157 }, --Glyph of the Chosen Glaive (V)
+        },
     },
 }
 
