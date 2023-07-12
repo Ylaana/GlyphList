@@ -59,6 +59,7 @@ glyphData.Glyphs = {
         [79538]  = {   0, 1007,   1706 }, --Glyph of the Heavens
         [153031] = { 256, 1299,  34433 }, --Glyph of the Lightspawn
         [104120] = {   0, 1085,  34433 }, --Glyph of the Sha
+        [207088] = { 258, 1439, 228260 }, --Glyph of the Shath'Yar
         [87277]  = { 257, 1049,  20711 }, --Glyph of the Val'kyr
         [153033] = { 258, 1301,  34433 }, --Glyph of the Voidling
     },
@@ -103,18 +104,11 @@ glyphData.Glyphs = {
         --265 Affliction, 266 Demonology, 267 Destruction
         [45789]  = {   0,  761,    710 }, --Glyph of Crimson Banish
         [151538] = { 267, 1296, 246985 }, --Glyph of Ember Shards
-        [129018] = {   0, 1255,    688 }, --Glyph of Fel Imp
         [151542] = {   0, 1298, 246985 }, --Glyph of Fel-Touched Shards
         [42459]  = { 266,  278,  30146 }, --Glyph of Felguard
         [151540] = {   0, 1297, 246985 }, --Glyph of Floating Shards
         [43394]  = {   0,  482,  29893 }, --Glyph of Soulwell
         [137191] = {   0, 1224,    126 }, --Glyph of the Inquisitor's Eye
-        [139312] = {   0, 1258,    691 }, --Glyph of the Observer
-        [147119] = {   0, 1292,    712 }, --Glyph of the Shadow Succubus
-        [139310] = {   0, 1256,    712 }, --Glyph of the Shivarra
-        [139311] = {   0, 1257,    697 }, --Glyph of the Voidlord
-        [139315] = { 266, 1261,  30146 }, --Glyph of Wrathguard
-        [147117] = {   0, 1291,    712 }, --Orb of the Fel Temptress
     },
     [10] = { --Monk
         --268 Brewmaster, 270 Mistweaver, 269 Windwalker

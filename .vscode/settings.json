@@ -1,0 +1,17 @@
+{
+    "Lua.diagnostics.globals": [
+        "SlashCmdList",
+        "PanelTemplates_SetTab",
+        "HybridScrollFrame_SetDoNotHideScrollBar",
+        "HybridScrollFrame_CreateButtons",
+        "HybridScrollFrame_Update",
+        "PanelTemplates_GetSelectedTab",
+        "PanelTemplates_SetNumTabs",
+        "HybridScrollFrame_GetButtons",
+        "HybridScrollFrame_GetOffset",
+        "BOOKTYPE_SPELL",
+        "GameTooltip",
+        "ChatEdit_InsertLink",
+        "DEFAULT_CHAT_FRAME"
+    ]
+}
