@@ -107,9 +107,19 @@ local function GetGlyphInfo()
                     end
                 else
                     if IsSpellKnown(actionID) then
-                        local spellLink = GetSpellLink(slotIndex, BOOKTYPE_SPELL)
+                        local spellLink
+                        --exception for icy veins which now triggers the summon water elemental spell
+                        if playerClassID == 8 and actionID == 12472 then
+                            --spell ID for summon water elemental (not in spellbook)
+                            local spellID = 31687
+                            spellLink = GetSpellLink(spellID)
+                            availableSpells[#availableSpells+1] = spellID
+                        else
+                            spellLink = GetSpellLink(slotIndex, BOOKTYPE_SPELL)
+                            availableSpells[#availableSpells+1] = actionID
+                        end
+
                         local glyphID = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
-                        availableSpells[#availableSpells+1] = actionID
                         if glyphID ~= 0 then
                             appliedGlyphs[#appliedGlyphs+1] = glyphID
                         end
