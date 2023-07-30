@@ -102,6 +102,7 @@ glyphData.Glyphs = {
     },
     [9] = { --Warlock
         --265 Affliction, 266 Demonology, 267 Destruction
+        [207101] = {   0, 1440,  20707 }, --Glyph of Banehollow's Soulstone
         [45789]  = {   0,  761,    710 }, --Glyph of Crimson Banish
         [151538] = { 267, 1296, 246985 }, --Glyph of Ember Shards
         [151542] = {   0, 1298, 246985 }, --Glyph of Fel-Touched Shards
