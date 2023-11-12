@@ -93,7 +93,7 @@
                     </OnClick>
                 </Scripts>
             </Button>
-            <Button name="GlyphListFrameTab2" parentKey="GlyphListFrameTab2" inherits="PanelTopTabButtonTemplate" text="MARKS" id="2">
+            <Button name="GlyphListFrameTab2" parentKey="GlyphListFrameTab2" inherits="PanelTopTabButtonTemplate" text="CLASS" id="2" hidden="true">
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="GlyphListFrameTab1" relativePoint="RIGHT" x="0" y="0"/>
                 </Anchors>
@@ -109,7 +109,7 @@
                     <Anchor point="BOTTOMRIGHT" x="-33" y="30"/>
                 </Anchors>
                 <Frames>
-                    <Slider name="ListScrollBar" parentKey="ListScrollBar" inherits="HybridScrollBarTemplate">
+                    <Slider name="ListScrollBar" parentKey="scrollBar" inherits="HybridScrollBarTemplate">
                         <Anchors>
                             <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="3" y="-15"/>
                             <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT" x="3" y="14"/>

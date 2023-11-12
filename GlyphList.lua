@@ -4,21 +4,21 @@ local L = glyphData.L
 local GL_NAME = "|cff26cacfGlyphList|r"
 local GL_TAB_COUNT = 2;
 local GL_TAB_GLYPHS = 1;
-local GL_TAB_MARKS = 2;
+local GL_TAB_CLASS = 2;
 
 local glyphList = {}
-local marksList = {}
+local classList = {}
 local playerLoc = PlayerLocation:CreateFromUnit("player")
 local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
 local playerSpecID = 0
+local isDruid = playerClassID == 11
+local isWarlock = playerClassID == 9
 local activeSpells = {}
 local glyphedSpells = {}
 local conflicts = {}
-local druidForms = {}
-local isDruid = playerClassID == 11
+local unlockedItems = {}
 
-
-local function FindValueInArray (tab, val)
+local function FindValueInArray(tab, val)
     if (#tab > 0) then
         for i = 1, #tab do
             if val == tab[i] then
@@ -38,26 +38,33 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
         if wait[itemID] then
             local itemName, itemLink = GetItemInfo(itemID)
             local isActive
-            if PanelTemplates_GetSelectedTab(GlyphListFrame) == GL_TAB_MARKS then
-                isActive = druidForms[itemID][2]
-            else
+            if PanelTemplates_GetSelectedTab(GlyphListFrame) == GL_TAB_GLYPHS then
                 local glyphID = glyphData.Glyphs[playerClassID][itemID][2]
                 isActive = FindValueInArray(glyphedSpells, glyphID)
+                glyphList[#glyphList + 1] = {
+                    itemID = itemID,
+                    itemIcon = GetItemIcon(itemID),
+                    itemName = itemName,
+                    itemLink = itemLink,
+                    isActive = isActive
+                }
+            else
+                if isDruid or isWarlock then
+                    isActive = unlockedItems[itemID][2]
+                    classList[#classList + 1] = {
+                        itemID = itemID,
+                        itemIcon = GetItemIcon(itemID),
+                        itemName = itemName,
+                        itemLink = itemLink,
+                        isActive = isActive
+                    }
+                end
             end
-
-            glyphList[#glyphList+1] = {
-                itemID=itemID,
-                itemIcon=GetItemIcon(itemID),
-                itemName=itemName,
-                itemLink=itemLink,
-                isActive=isActive
-            }
             wait[itemID] = nil
+
             if next(wait) == nil then
-                if PanelTemplates_GetSelectedTab(GlyphListFrame) == GL_TAB_GLYPHS then
-                    DEFAULT_CHAT_FRAME:AddMessage(GL_NAME..": "..L["GLYPHS_LOADED"]);
-                else
-                    DEFAULT_CHAT_FRAME:AddMessage(GL_NAME..": "..L["MARKS_LOADED"]);
+                if GlyphListFrame:IsShown() then
+                    DEFAULT_CHAT_FRAME:AddMessage(GL_NAME .. ": " .. L["REFRESH_MSG"]);
                 end
                 GlyphListFrame.RefreshButton:Show()
                 GlyphListFrame:RefreshLayout()
@@ -78,7 +85,7 @@ local function GetCurrentSpec()
         local currentSpecID, currentSpecName = GetSpecializationInfo(currentSpec)
         playerSpecID = currentSpecID
         local className = select(7, GetSpecializationInfoByID(currentSpecID))
-        return currentSpecName.." "..className
+        return currentSpecName .. " " .. className
     end
 end
 
@@ -90,7 +97,7 @@ local function GetGlyphInfo()
         local _, _, offset, numSlots, _, offspecID = GetSpellTabInfo(tabIndex)
         --only get class tab and active/first spec tab
         if offspecID == 0 or offspecID == playerSpecID then
-            for slotIndex = offset+1, offset+numSlots do
+            for slotIndex = offset + 1, offset + numSlots do
                 local slotType, actionID = GetSpellBookItemInfo(slotIndex, BOOKTYPE_SPELL)
                 if slotType == "FLYOUT" then
                     local _, _, numSpells = GetFlyoutInfo(actionID)
@@ -99,29 +106,29 @@ local function GetGlyphInfo()
                         if IsSpellKnown(flyoutSpellID) then
                             local spellLink = GetSpellLink(flyoutSpellID)
                             local glyphID = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
-                            availableSpells[#availableSpells+1] = flyoutSpellID
+                            availableSpells[#availableSpells + 1] = flyoutSpellID
                             if glyphID ~= 0 then
-                                appliedGlyphs[#appliedGlyphs+1] = glyphID
+                                appliedGlyphs[#appliedGlyphs + 1] = glyphID
                             end
                         end
                     end
                 else
                     if IsSpellKnown(actionID) then
                         local spellLink
-                        --exception for icy veins which now triggers the summon water elemental spell
+                        --exception for icy veins which now summons water elemental
                         if playerClassID == 8 and actionID == 12472 then
                             --spell ID for summon water elemental (not in spellbook)
                             local spellID = 31687
                             spellLink = GetSpellLink(spellID)
-                            availableSpells[#availableSpells+1] = spellID
+                            availableSpells[#availableSpells + 1] = spellID
                         else
                             spellLink = GetSpellLink(slotIndex, BOOKTYPE_SPELL)
-                            availableSpells[#availableSpells+1] = actionID
+                            availableSpells[#availableSpells + 1] = actionID
                         end
 
                         local glyphID = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
                         if glyphID ~= 0 then
-                            appliedGlyphs[#appliedGlyphs+1] = glyphID
+                            appliedGlyphs[#appliedGlyphs + 1] = glyphID
                         end
                     end
                 end
@@ -131,14 +138,15 @@ local function GetGlyphInfo()
     return availableSpells, appliedGlyphs
 end
 
-local function GetDruidForms()
-    druidForms = {}
-
-    for itemID, achievementID in pairs (glyphData.Marks) do
-        local completed = select(4, GetAchievementInfo(achievementID))
-        druidForms[itemID] = { achievementID, completed }
+local function GetCompletedQuests(questData)
+    local quests = {}
+    for itemID, questInfo in pairs(questData) do
+        local questID = questInfo[1]
+        local spellID = questInfo[2]
+        local completed = C_QuestLog.IsQuestFlaggedCompleted(questID)
+        quests[itemID] = { questID, completed, spellID }
     end
-    return druidForms
+    return quests
 end
 
 local function GetConflicts()
@@ -147,7 +155,7 @@ local function GetConflicts()
     --build conflicts list
     for itemID, glyphInfo in pairs(glyphData.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
-            for _,gInfo in pairs(glyphInfo) do
+            for _, gInfo in pairs(glyphInfo) do
                 local actionID = gInfo[3]
                 if not conf[actionID] then
                     conf[actionID] = {}
@@ -175,22 +183,21 @@ local function GetConflicts()
     return conf
 end
 
-local function BuildMarksData(itemID, markInfo)
-    -- local achievementID = markInfo[1]
-    local completed = markInfo[2]
+local function BuildClassData(itemID, classInfo)
+    -- quest/achievement ID = classInfo[1]
+    local completed = classInfo[2]
 
-    --print("getting marks data: "..itemID..", "..dump(markInfo))
     local itemName, itemLink = GetItemInfo(itemID)
     if itemName then
         local isActive = completed
-        local markItem = {
-            itemID=itemID,
-            itemIcon=GetItemIcon(itemID),
-            itemName=itemName,
-            itemLink=itemLink,
-            isActive=isActive
+        local classItem = {
+            itemID = itemID,
+            itemIcon = GetItemIcon(itemID),
+            itemName = itemName,
+            itemLink = itemLink,
+            isActive = isActive
         }
-        return markItem
+        return classItem
     else
         wait[itemID] = true
     end
@@ -214,11 +221,11 @@ local function BuildGlyphData(itemID, glyphInfo)
         if itemName then
             local isActive = FindValueInArray(glyphedSpells, glyphID)
             local glyphItem = {
-                itemID=itemID,
-                itemIcon=GetItemIcon(itemID),
-                itemName=itemName,
-                itemLink=itemLink,
-                isActive=isActive
+                itemID = itemID,
+                itemIcon = GetItemIcon(itemID),
+                itemName = itemName,
+                itemLink = itemLink,
+                isActive = isActive
             }
             return glyphItem
         else
@@ -227,33 +234,40 @@ local function BuildGlyphData(itemID, glyphInfo)
     end
 end
 
-local function CreateMarksList()
-    marksList = {}
-
-    for itemID, markInfo in pairs (druidForms) do
-        local data = BuildMarksData(itemID, markInfo)
-        if data ~= nil then
-            marksList[#marksList+1] = data
+local function CreateClassList(classData)
+    classList = {}
+    for itemID, classInfo in pairs(classData) do
+        if type(classInfo[1]) == "table" then
+            for _, cInfo in pairs(classInfo) do
+                local data = BuildClassData(itemID, cInfo)
+                if data ~= nil then
+                    classList[#classList + 1] = data
+                end
+            end
+        else
+            local data = BuildClassData(itemID, classInfo)
+            if data ~= nil then
+                classList[#classList + 1] = data
+            end
         end
     end
-    return marksList
+    return classList
 end
 
 local function CreateGlyphList()
     glyphList = {}
-
     for itemID, glyphInfo in pairs(glyphData.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
             for _, gInfo in pairs(glyphInfo) do
                 local data = BuildGlyphData(itemID, gInfo)
                 if data ~= nil then
-                    glyphList[#glyphList+1] = data
+                    glyphList[#glyphList + 1] = data
                 end
             end
         else
             local data = BuildGlyphData(itemID, glyphInfo)
             if data ~= nil then
-                glyphList[#glyphList+1] = data
+                glyphList[#glyphList + 1] = data
             end
         end
     end
@@ -266,6 +280,15 @@ local function GetGlyphMatches(itemID)
             return glyphList[i]
         end
     end
+end
+
+local function IsUnlock(spellID)
+    for _, v in pairs(unlockedItems) do
+        if spellID == v[3] then
+            return true
+        end
+    end
+    return false
 end
 
 local function IsGlyphExclusive(item)
@@ -307,6 +330,22 @@ end
 GlyphListMixin = {};
 
 function GlyphListMixin:OnLoad()
+    if isDruid or isWarlock then
+        PanelTemplates_SetNumTabs(self, GL_TAB_COUNT);
+
+        if isDruid then
+            self.GlyphListFrameTab2.Text:SetText(L["MARKS"])
+        elseif isWarlock then
+            self.GlyphListFrameTab2.Text:SetText(L["GRIMOIRES"])
+        end
+        self.GlyphListFrameTab2:Show()
+    else
+        --hide class tab
+        PanelTemplates_SetNumTabs(self, 1);
+    end
+
+    PanelTemplates_SetTab(self, GL_TAB_GLYPHS);
+
     self:EnableMouse(true)
     self:SetMovable(true)
     self:SetUserPlaced(true)
@@ -315,41 +354,31 @@ function GlyphListMixin:OnLoad()
     self:RegisterEvent("SPELLS_CHANGED")
     self:RegisterEvent("PLAYER_LOGIN")
     self:RegisterEvent("GET_ITEM_INFO_RECEIVED")
-    if isDruid then
+    if isDruid or isWarlock then
         self:RegisterEvent("RECEIVED_ACHIEVEMENT_LIST")
+        self:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
     end
     self:RegisterEvent("PLAYER_LOGOUT")
 
-    self.ViewAllButton.Text:SetText(L["VIEW_ALL"])
-    self.ViewAllButton.Text:SetFontObject("GameFontNormalSmall")
-    self.ViewAllButton.CheckBox:SetSize(20,19)
-    self.ViewAllButton.CheckBox:SetPoint("LEFT",-24,0)
-    local viewAllWidth = (self.ViewAllButton.Text:GetWidth() + 10)
-    self.ViewAllButton:SetPoint("TOPLEFT", self, "TOPRIGHT", viewAllWidth * -1, -22)
+    local viewAll = self.ViewAllButton
+    viewAll.Text:SetText(L["VIEW_ALL"])
+    viewAll.Text:SetFontObject("GameFontNormalSmall")
+    viewAll.Text:SetPoint("LEFT", -7, 0);
+    viewAll.CheckBox:SetSize(20, 19)
+    viewAll.CheckBox:SetPoint("LEFT", -33, 0)
+    local viewAllWidth = viewAll.Text:GetWidth() + 5
+    viewAll:SetWidth(viewAllWidth)
+    viewAll:SetPoint("TOPLEFT", self, "TOPRIGHT", viewAllWidth * -1, -24)
 
-    self.ViewAllButton.CheckBox:SetScript("OnClick", function()
-        if self.ViewAllButton.CheckBox:GetChecked() then
+    viewAll.CheckBox:SetScript("OnClick", function()
+        if viewAll.CheckBox:GetChecked() then
             ShowAllGlyphs = true
-            self.items = CreateGlyphList()
-            self:RefreshLayout()
         else
             ShowAllGlyphs = false
-            self.items = CreateGlyphList()
-            self:RefreshLayout()
         end
+        self.items = CreateGlyphList()
+        self:RefreshLayout()
     end)
-
-    if isDruid then
-        self.GlyphListFrameTab2:Show()
-        PanelTemplates_SetNumTabs(self, GL_TAB_COUNT);
-        self.GlyphListFrameTab2.Text:SetText(L["MARKS"])
-    else
-        --hide Marks tab for non-druids
-        self.GlyphListFrameTab2:Hide()
-        PanelTemplates_SetNumTabs(self, 1);
-    end
-
-    PanelTemplates_SetTab(self, GL_TAB_GLYPHS);
 
     self.items = CreateGlyphList()
     self.ListScrollFrame.update = function() self:RefreshLayout() end
@@ -365,7 +394,8 @@ end
 function GlyphListMixin:OnHide()
 end
 
-function GlyphListMixin:OnEvent(event, arg1)
+function GlyphListMixin:OnEvent(event, ...)
+    local arg1, arg2, arg3 = ...
     if event == "ADDON_LOADED" and arg1 == "GlyphList" then
         if AddonShown == nil then
             AddonShown = true
@@ -377,44 +407,69 @@ function GlyphListMixin:OnEvent(event, arg1)
         self.ViewAllButton.CheckBox:SetChecked(ShowAllGlyphs)
     elseif event == "GET_ITEM_INFO_RECEIVED" then
         self:RefreshLayout()
-    elseif event == "RECEIVED_ACHIEVEMENT_LIST" and isDruid then
-        self:ChangeTab(GL_TAB_MARKS)
-        druidForms = GetDruidForms()
-    elseif event == "PLAYER_LOGIN" and isDruid then
-        if DruidForms == nil then
-            druidForms = GetDruidForms()
-        else
-            druidForms = DruidForms
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "player" then
+        if IsUnlock(arg3) then
+            unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+            self:ChangeTab(GL_TAB_CLASS)
         end
-    elseif event == "SPELLS_CHANGED" or event == "PLAYER_LOGIN" then
+    elseif event == "RECEIVED_ACHIEVEMENT_LIST" then
+        unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+        self:ChangeTab(GL_TAB_CLASS)
+    elseif event == "PLAYER_LOGIN" then
+        local next = next
+        if isDruid then
+            if Druid == nil or next(Druid) == nil then
+                unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+            else
+                unlockedItems = Druid
+            end
+            self.GlyphListFrameTab2.Text:SetText(L["MARKS"])
+            self.GlyphListFrameTab2:Show()
+            PanelTemplates_SetNumTabs(self, 2);
+        elseif isWarlock then
+            if Warlock == nil or next(Warlock) == nil then
+                unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+            else
+                unlockedItems = Warlock
+            end
+            self.GlyphListFrameTab2.Text:SetText(L["GRIMOIRES"])
+            self.GlyphListFrameTab2:Show()
+            PanelTemplates_SetNumTabs(self, 2);
+        end
+
         activeSpells, glyphedSpells = GetGlyphInfo()
         conflicts = GetConflicts()
-        self:ChangeTab(GL_TAB_GLYPHS)
         self:SetTitleText()
-        self.items = CreateGlyphList()
-        self:RefreshLayout()
+        self:ChangeTab(GL_TAB_GLYPHS)
+    elseif event == "SPELLS_CHANGED" then
+        activeSpells, glyphedSpells = GetGlyphInfo()
+        conflicts = GetConflicts()
+        self:SetTitleText()
+        self:ChangeTab(GL_TAB_GLYPHS)
     elseif event == "PLAYER_LOGOUT" then
         AddonShown = self:IsShown()
         ShowAllGlyphs = self.ViewAllButton.CheckBox:GetChecked()
         if isDruid then
-            DruidForms = druidForms
+            Druid = unlockedItems
+        elseif isWarlock then
+            Warlock = unlockedItems
         end
     end
 end
 
 function GlyphListMixin:SelectTab(tab)
-	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
-	local tabID = tab:GetID()
-	self:ChangeTab(tabID);
+    PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
+    local tabID = tab:GetID()
+    self:ChangeTab(tabID);
 end
 
 function GlyphListMixin:ChangeTab(tabID)
-	PanelTemplates_SetTab(self, tabID);
-	if tabID == 1 then
-		self:ShowGlyphList();
-	elseif tabID == 2 then
-		self:ShowMarksList();
-	end
+    PanelTemplates_SetTab(self, tabID);
+    if tabID == GL_TAB_GLYPHS then
+        self:ShowGlyphList();
+    elseif tabID == GL_TAB_CLASS then
+        self:ShowClassList();
+    end
 end
 
 function GlyphListMixin:ShowGlyphList()
@@ -423,9 +478,9 @@ function GlyphListMixin:ShowGlyphList()
     self:RefreshLayout()
 end
 
-function GlyphListMixin:ShowMarksList()
+function GlyphListMixin:ShowClassList()
     self.ViewAllButton:Hide()
-    self.items = CreateMarksList()
+    self.items = CreateClassList(unlockedItems)
     self:RefreshLayout()
 end
 
@@ -507,8 +562,8 @@ local function handler(msg, editBox)
         GlyphListFrame:SetShown(false)
     elseif msg == "forceupdate" then
         GlyphListFrame:ChangeTab(GL_TAB_GLYPHS)
-        if isDruid then
-            druidForms = GetDruidForms()
+        if isDruid or isWarlock then
+            unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
         end
     end
 end

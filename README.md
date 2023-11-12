@@ -1,9 +1,9 @@
 # GlyphList
-A WoW addon that displays a list of available glyphs for your class.
+A WoW addon that displays a list of available glyphs and appearance unlocks for your class.
 
 The addon shows a list of glyphs for your class, and highlights the ones that are known for the active spec.
 
-NEW: Druids will be able to see a second tab that displays Marks which, when learned, unlock shapeshift appearances in the barbershop. These are account-wide and also highlighted if known.
+Druids will be able to see a second tab that displays Marks which, when learned, unlock shapeshift appearances in the barbershop. Warlocks will see a tab for Grimoires which unlock appearances for their demons in the barbershop. All of these are account-wide and also highlighted if known.
 
 The Refresh button can be used to update the active tab as sometimes not all information is available instantly.
 
