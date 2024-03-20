@@ -9,6 +9,7 @@ glyphData.Glyphs = {
         [43398]  = {  73,  486, 115768 }, --Glyph of Gushing Wound
         [80587]  = {   0,  990, 163201 }, --Glyph of Hawk Feast
         [43400]  = {   0,  488,  34428 }, --Glyph of Mighty Victory
+        [217584] = {   0, 1444, 376079 }, --Glyph of Spear of Bastion
         [137188] = {   0, 1223,   3411 }, --Glyph of the Blazing Savior
         [85221]  = {   0, 1020,    100 }, --Glyph of the Blazing Trail
         [203763] = {   0, 1432,  57755 }, --Glyph of the Heaved Armament
@@ -17,6 +18,8 @@ glyphData.Glyphs = {
     },
     [2] = { --Paladin
         --65 Holy, 66 Protection, 70 Retribution
+        [217588] = {  65, 1455, 388007 }, --Glyph of Blessing of the Seasons
+        [217587] = {   0, 1454, 375576 }, --Glyph of Divine Toll
         [43369]  = {   0,  457,  20271 }, --Glyph of Fire From the Heavens
         [104108] = {  65, 1083,  20473 }, --Glyph of Pillar of Light
         [41100]  = {   0,  190,  32223 }, --Glyph of the Luminous Charger
@@ -31,6 +34,7 @@ glyphData.Glyphs = {
     [3] = { --Hunter
         --253 Beast Mastery, 254 Marksmanship, 255 Survival
         [137249] = { 253, 1234, 120679 }, --Glyph of Arachnophobia
+        [217593] = {   0, 1450, 375891 }, --Glyph of Death Chakram
         [170173] = { 253, 1415, 120679 }, --Glyph of Dire Bees
         [43350]  = {   0,  440,    883 }, --Glyph of Lesser Proportion
         [137250] = { 253, 1235, 120679 }, --Glyph of Nesingwary's Nemeses
@@ -45,7 +49,10 @@ glyphData.Glyphs = {
         [139358] = {   0, 1272,   6770 }, --Glyph of Blackout
         [139442] = {   0, 1283,   2983 }, --Glyph of Burnout
         [45768]  = {   0,  733,    921 }, --Glyph of Disguise
+        [217597] = {   0, 1457, 385616 }, --Glyph of Echoing Reprimand
+        [217598] = { 261, 1459, 384631 }, --Glyph of Flagellation
         [129020] = {   0, 1271,   1725 }, --Glyph of Flash Bang
+        [217583] = {   0, 1458, 385408 }, --Glyph of Sepsis
     },
     [5] = { --Priest
         --256 Discipline, 257 Holy, 258 Shadow
@@ -53,6 +60,7 @@ glyphData.Glyphs = {
         [153036] = { 256, 1302,  47540 }, --Glyph of Dark Absolution
         [129017] = {   0, 1270,    586 }, --Glyph of Ghostly Fade
         [104122] = { 257, 1087,  64843 }, --Glyph of Inspired Hymns
+        [217589] = {   0, 1456, 375901 }, --Glyph of Mindgames
         [43373]  = {   0,  461,   9484 }, --Glyph of Shackle Undead
         [77101]  = { 258,  961, 232698 }, --Glyph of Shadow
         [87392]  = { 258, 1052, 232698 }, --Glyph of Shadowy Friends
@@ -65,6 +73,7 @@ glyphData.Glyphs = {
     },
     [6] = { --Death Knight
         --250 Blood, 251 Frost, 252 Unholy
+        [217596] = {   0, 1462, 383269 }, --Glyph of Abomination Limb
         [137274] = {   0, 1240,   3714 }, --Glyph of Cracked Ice
         [43551]  = { 252,  529,  42650 }, --Glyph of Foul Menagerie
         [139271] = {   0, 1247,  48707 }, --Glyph of the Chilled Shell
@@ -78,6 +87,11 @@ glyphData.Glyphs = {
         [137289] = { 262, 1244, 198067 }, --Glyph of Flickering
         [104127] = {   0, 1091,   2008 }, --Glyph of Lingering Ancestors
         [137288] = {   0, 1243, 198103 }, --Glyph of Pebbles
+        [217599] = {
+            { 262, 1460, 375982 }, --Glyph of Primordial Wave (Elemental)
+            { 263, 1460, 375982 }, --Glyph of Primordial Wave (Enhancement)
+            { 264, 1460, 428332 }, --Glyph of Primordial Wave (Restoration)
+        },
         [104126] = { 263, 1090,  51533 }, --Glyph of Spirit Raptors
         [190378] = {   0, 1426,   2645 }, --Glyph of the Spectral Lupine
         [137287] = {   0, 1242,   2645 }, --Glyph of the Spectral Raptor
@@ -91,6 +105,8 @@ glyphData.Glyphs = {
         [104105] = {  64, 1080,  31687 }, --Glyph of Evaporation
         [172449] = {   0, 1416, 190336 }, --Glyph of Lavish Servings
         [139352] = {   0, 1269,    118 }, --Glyph of Polymorphic Proportions
+        [217586] = {  62, 1452, 376103 }, --Glyph of Radiant Spark
+        [217594] = {   0, 1451, 382440 }, --Glyph of Shifting Power
         [139348] = {  63, 1267, 190319 }, --Glyph of Smolder
         [129019] = {   0, 1266,    130 }, --Glyph of Sparkles
         [170165] = {  64, 1413,  31687 }, --Glyph of Steaming Fury
@@ -108,23 +124,34 @@ glyphData.Glyphs = {
         [151542] = {   0, 1298, 246985 }, --Glyph of Fel-Touched Shards
         [42459]  = { 266,  278,  30146 }, --Glyph of Felguard
         [151540] = {   0, 1297, 246985 }, --Glyph of Floating Shards
+        [217600] = { 265, 1461, 386997 }, --Glyph of Soul Rot
         [43394]  = {   0,  482,  29893 }, --Glyph of Soulwell
         [137191] = {   0, 1224,    126 }, --Glyph of the Inquisitor's Eye
     },
     [10] = { --Monk
-        --268 Brewmaster, 270 Mistweaver, 269 Windwalker
+        --268 Brewmaster, 269 Windwalker, 270 Mistweaver
         [139338] = {   0, 1264, 117952 }, --Glyph of Crackling Crane Lightning
         [129022] = {   0, 1263, 117952 }, --Glyph of Crackling Ox Lightning
         [87881]  = {   0, 1045, 117952 }, --Glyph of Crackling Tiger Lightning
+        [217494] = {
+            { 270, 1443, 388193 }, --Glyph of Faeline Stomp (Mistweaver)
+            { 269, 1443, 388193 }, --Glyph of Faeline Stomp (Windwalker)
+        },
         [87888]  = {   0, 1041, 101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039, 322109 }, --Glyph of Honor
         [87885]  = {   0, 1028, 107428 }, --Glyph of Rising Tiger Kick
+        [217595] = { 268, 1453, 387184 }, --Glyph of Weapons of Order
         [139339] = { 268, 1265, 124502 }, --Glyph of Yu'lon's Grace
     },
     [11] = { --Druid
         --102 Balance, 103 Feral, 104 Guardian, 105 Restoration
         --Note: Glyph of the Forest Path DOES NOT work with Tiger Dash
+        [217592] = {
+            { 103, 1449, 391888 }, --Glyph of Adaptive Swarm (Feral)
+            { 105, 1449, 391888 }, --Glyph of Adaptive Swarm (Restoration)
+        },
         [136826] = { 105, 1221,  33763 }, --Glyph of Autumnal Bloom
+        [217585] = {   0, 1448, 391528 }, --Glyph of Convoke the Spirits
         [44922]  = {
             { 102,  613,  24858 }, --Glyph of Stars (Balance)
             { 103,  613, 197625 }, --Glyph of Stars (Balance Affinity)
@@ -150,6 +177,7 @@ glyphData.Glyphs = {
     [12] = { --Demon Hunter
         --577 Havoc, 581 Vengeance
         [129029] = {   0, 1275, 258920 }, --Glyph of Crackling Flames
+        [217591] = {   0, 1447, 390163 }, --Glyph of Elysian Decree
         [139417] = {   0, 1276, 131347 }, --Glyph of Fallow Wings
         [129028] = {
             { 577, 1273, 178940 }, --Glyph of Fel Touched Souls (H)
@@ -157,6 +185,7 @@ glyphData.Glyphs = {
         },
         [139435] = {   0, 1277, 131347 }, --Glyph of Fel Wings
         [139437] = {   0, 1279, 188501 }, --Glyph of Fel-Enemies
+        --[] = { 0, 1446, 391429 } --Glyph of Fodder to the Flame
         [139362] = {
             { 577, 1274, 178940 }, --Glyph of Mana Touched Souls (H)
             { 581, 1274, 204254 }, --Glyph of Mana Touched Souls (V)
@@ -167,6 +196,7 @@ glyphData.Glyphs = {
             { 577, 1431, 185123 }, --Glyph of the Chosen Glaive (H)
             { 581, 1431, 204157 }, --Glyph of the Chosen Glaive (V)
         },
+        [217590] = {   0, 1445, 370965 }, --Glyph of the Hunt
     },
 }
 
