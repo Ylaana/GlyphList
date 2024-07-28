@@ -139,6 +139,10 @@ glyphData.Glyphs = {
         },
         [87888]  = {   0, 1041, 101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039, 322109 }, --Glyph of Honor
+        [225338] = {
+            { 268, 1463, 100780 }, --Glyph of Jab (Brewmaster)
+            { 269, 1463, 100780 }, --Glyph of Jab (Windwalker)
+        },
         [87885]  = {   0, 1028, 107428 }, --Glyph of Rising Tiger Kick
         [217595] = { 268, 1453, 387184 }, --Glyph of Weapons of Order
         [139339] = { 268, 1265, 124502 }, --Glyph of Yu'lon's Grace
@@ -259,8 +263,8 @@ glyphData.Barbershop = {
         [187887] = { 65048, 360543 }, --Mark of the Gloomstalker Dredbat
         [210751] = { 78528, 426483 }, --Mark of the Hibernating Runebear
         [210650] = { 78503, 426354 }, --Mark of the Keen-Eyed Dreamsaber
-        [210731] = { 78522, 426475 }, --Mark of the Lush Dreamstag
         [210738] = { 78519, 426465 }, --Mark of the Loamy Umbraclaw
+        [210731] = { 78522, 426475 }, --Mark of the Lush Dreamstag
         [187934] = { 65061, 360895 }, --Mark of the Midnight Runestag
         [187931] = { 65059, 360881 }, --Mark of the Regal Dredbat
         [187936] = { 65062, 360900 }, --Mark of the Sable Ardenmoth

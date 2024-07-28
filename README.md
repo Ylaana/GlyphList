@@ -20,4 +20,4 @@ Please bear in mind that the list highlights glyphs for the active spec *only*. 
 Shift + left click can be used to link any listed glyph/mark in chat.
 
 Use /gl or /glyphlist to toggle list visibility.
-Commands: /gl (show|hide|forceupdate)
+Commands: /gl (show|hide|refresh)

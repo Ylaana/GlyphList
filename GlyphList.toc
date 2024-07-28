@@ -1,8 +1,8 @@
-## Interface: 100206
+## Interface: 110002
 ## Title: GlyphList
 ## Notes: A list of available glyphs and appearance unlocks for your class
 ## Author: Ylaana
-## Version: v1.4.7
+## Version: v1.4.8
 ## IconTexture: Interface\AddOns\GlyphList\textures\logo-square
 ## SavedVariablesPerCharacter: AddonShown, ShowAllGlyphs
 ## SavedVariables: Druid, Warlock

@@ -82,7 +82,7 @@
             <Anchor point="CENTER" x="0" y="0"/>
         </Anchors>
         <Frames>
-            <CheckButton parentKey="ViewAllButton" inherits="SettingsCheckBoxControlTemplate" enableMouse="true"></CheckButton>
+            <CheckButton parentKey="ViewAllButton" inherits="SettingsCheckboxControlTemplate" enableMouse="true"></CheckButton>
             <Button name="GlyphListFrameTab1" inherits="PanelTopTabButtonTemplate" text="GLYPHS" id="1">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="51" y="-28"/>

@@ -30,15 +30,17 @@ local function FindValueInArray(tab, val)
 end
 
 local wait = {}
+local wait2 = {}
 local cache_writer = CreateFrame("Frame")
 cache_writer:RegisterEvent("GET_ITEM_INFO_RECEIVED")
 cache_writer:SetScript("OnEvent", function(self, event, ...)
     if event == "GET_ITEM_INFO_RECEIVED" then
         local itemID = ...
-        if wait[itemID] then
+        if wait[itemID] or wait2[itemID] then
             local itemName, itemLink = GetItemInfo(itemID)
             local isActive
-            if PanelTemplates_GetSelectedTab(GlyphListFrame) == GL_TAB_GLYPHS then
+
+            if wait[itemID] then
                 local glyphID = glyphData.Glyphs[playerClassID][itemID][2]
                 isActive = FindValueInArray(glyphedSpells, glyphID)
                 glyphList[#glyphList + 1] = {
@@ -48,7 +50,9 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
                     itemLink = itemLink,
                     isActive = isActive
                 }
-            else
+
+                wait[itemID] = nil
+            elseif wait2[itemID] then
                 if isDruid or isWarlock then
                     isActive = unlockedItems[itemID][2]
                     classList[#classList + 1] = {
@@ -59,10 +63,11 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
                         isActive = isActive
                     }
                 end
-            end
-            wait[itemID] = nil
 
-            if next(wait) == nil then
+                wait2[itemID] = nil
+            end
+
+            if next(wait) == nil and next(wait2) == nil then
                 if GlyphListFrame:IsShown() then
                     DEFAULT_CHAT_FRAME:AddMessage(GL_NAME .. ": " .. L["REFRESH_MSG"]);
                 end
@@ -93,18 +98,19 @@ local function GetGlyphInfo()
     local appliedGlyphs = {}
     local availableSpells = {}
 
-    for tabIndex = 2, GetNumSpellTabs() do
-        local _, _, offset, numSlots, _, offspecID = GetSpellTabInfo(tabIndex)
+    for i = 2, C_SpellBook.GetNumSpellBookSkillLines() do
+        local skillLineInfo = C_SpellBook.GetSpellBookSkillLineInfo(i)
+        local offset, numSlots, offSpecID = skillLineInfo.itemIndexOffset, skillLineInfo.numSpellBookItems, skillLineInfo.offSpecID
         --only get class tab and active/first spec tab
-        if offspecID == 0 or offspecID == playerSpecID then
-            for slotIndex = offset + 1, offset + numSlots do
-                local slotType, actionID = GetSpellBookItemInfo(slotIndex, BOOKTYPE_SPELL)
-                if slotType == "FLYOUT" then
+        if offSpecID == nil or offSpecID == playerSpecID then
+            for j = offset + 1, offset + numSlots do
+                local itemType, actionID = C_SpellBook.GetSpellBookItemType(j, Enum.SpellBookSpellBank.Player)
+                if itemType == Enum.SpellBookItemType.Flyout then
                     local _, _, numSpells = GetFlyoutInfo(actionID)
                     for spellIndex = 1, numSpells do
                         local flyoutSpellID = GetFlyoutSlotInfo(actionID, spellIndex)
                         if IsSpellKnown(flyoutSpellID) then
-                            local spellLink = GetSpellLink(flyoutSpellID)
+                            local spellLink = C_Spell.GetSpellLink(flyoutSpellID)
                             local glyphID = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
                             availableSpells[#availableSpells + 1] = flyoutSpellID
                             if glyphID ~= 0 then
@@ -119,10 +125,10 @@ local function GetGlyphInfo()
                         if playerClassID == 8 and actionID == 12472 then
                             --spell ID for summon water elemental (not in spellbook)
                             local spellID = 31687
-                            spellLink = GetSpellLink(spellID)
+                            spellLink = C_Spell.GetSpellLink(spellID)
                             availableSpells[#availableSpells + 1] = spellID
                         else
-                            spellLink = GetSpellLink(slotIndex, BOOKTYPE_SPELL)
+                            spellLink = C_SpellBook.GetSpellBookItemLink(j, Enum.SpellBookSpellBank.Player)
                             availableSpells[#availableSpells + 1] = actionID
                         end
 
@@ -143,7 +149,7 @@ local function GetCompletedQuests(questData)
     for itemID, questInfo in pairs(questData) do
         local questID = questInfo[1]
         local spellID = questInfo[2]
-        local completed = C_QuestLog.IsQuestFlaggedCompleted(questID)
+        local completed = C_QuestLog.IsQuestFlaggedCompletedOnAccount(questID)
         quests[itemID] = { questID, completed, spellID }
     end
     return quests
@@ -199,7 +205,7 @@ local function BuildClassData(itemID, classInfo)
         }
         return classItem
     else
-        wait[itemID] = true
+        wait2[itemID] = true
     end
 end
 
@@ -364,14 +370,14 @@ function GlyphListMixin:OnLoad()
     viewAll.Text:SetText(L["VIEW_ALL"])
     viewAll.Text:SetFontObject("GameFontNormalSmall")
     viewAll.Text:SetPoint("LEFT", -7, 0);
-    viewAll.CheckBox:SetSize(20, 19)
-    viewAll.CheckBox:SetPoint("LEFT", -33, 0)
+    viewAll.Checkbox:SetSize(20, 19)
+    viewAll.Checkbox:SetPoint("LEFT", -33, 0)
     local viewAllWidth = viewAll.Text:GetWidth() + 5
     viewAll:SetWidth(viewAllWidth)
     viewAll:SetPoint("TOPLEFT", self, "TOPRIGHT", viewAllWidth * -1, -24)
 
-    viewAll.CheckBox:SetScript("OnClick", function()
-        if viewAll.CheckBox:GetChecked() then
+    viewAll.Checkbox:SetScript("OnClick", function()
+        if viewAll.Checkbox:GetChecked() then
             ShowAllGlyphs = true
         else
             ShowAllGlyphs = false
@@ -404,7 +410,7 @@ function GlyphListMixin:OnEvent(event, ...)
             ShowAllGlyphs = false
         end
         self:SetShown(AddonShown)
-        self.ViewAllButton.CheckBox:SetChecked(ShowAllGlyphs)
+        self.ViewAllButton.Checkbox:SetChecked(ShowAllGlyphs)
     elseif event == "GET_ITEM_INFO_RECEIVED" then
         self:RefreshLayout()
     elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "player" then
@@ -448,7 +454,7 @@ function GlyphListMixin:OnEvent(event, ...)
         self:ChangeTab(GL_TAB_GLYPHS)
     elseif event == "PLAYER_LOGOUT" then
         AddonShown = self:IsShown()
-        ShowAllGlyphs = self.ViewAllButton.CheckBox:GetChecked()
+        ShowAllGlyphs = self.ViewAllButton.Checkbox:GetChecked()
         if isDruid then
             Druid = unlockedItems
         elseif isWarlock then
@@ -560,7 +566,7 @@ local function handler(msg, editBox)
         GlyphListFrame:SetShown(true)
     elseif msg == "hide" then
         GlyphListFrame:SetShown(false)
-    elseif msg == "forceupdate" then
+    elseif msg == "refresh" then
         GlyphListFrame:ChangeTab(GL_TAB_GLYPHS)
         if isDruid or isWarlock then
             unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
