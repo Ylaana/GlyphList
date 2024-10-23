@@ -1,6 +1,6 @@
-local _, glyphData = ...
+local addonName, addon = ...
 
-glyphData.Glyphs = {
+addon.Glyphs = {
     --[glyph itemID] = { specID, spellLink glyphID, actionID }
     [1] = { --Warrior
         --71 Arms, 72 Fury, 73 Protection
@@ -84,6 +84,11 @@ glyphData.Glyphs = {
     [7] = { --Shaman
         --262 Elemental, 263 Enhancement, 264 Restoration
         [139289] = {   0, 1254,  51514 }, --Glyph of Critterhex
+        [232622] = {
+            { 262, 1467, 114050 }, --Glyph of Energetic Ascendance (Ele)
+            { 263, 1467, 114051 }, --Glyph of Energetic Ascendance (Enh)
+            { 264, 1467, 114052 }, --Glyph of Energetic Ascendance (R)
+        },
         [137289] = { 262, 1244, 198067 }, --Glyph of Flickering
         [104127] = {   0, 1091,   2008 }, --Glyph of Lingering Ancestors
         [137288] = {   0, 1243, 198103 }, --Glyph of Pebbles
@@ -97,6 +102,11 @@ glyphData.Glyphs = {
         [137287] = {   0, 1242,   2645 }, --Glyph of the Spectral Raptor
         [190380] = {   0, 1427,   2645 }, --Glyph of the Spectral Vulpine
         [43386]  = {   0,  471,   2645 }, --Glyph of the Spectral Wolf
+        [232527] = {
+            { 262, 1466, 114050 }, --Glyph of Traditional Ascendance (Ele)
+            { 263, 1466, 114051 }, --Glyph of Traditional Ascendance (Enh)
+            { 264, 1466, 114052 }, --Glyph of Traditional Ascendance (R)
+        },
     },
     [8] = { --Mage
         --62 Arcane, 63 Fire, 64 Frost
@@ -139,9 +149,9 @@ glyphData.Glyphs = {
         },
         [87888]  = {   0, 1041, 101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039, 322109 }, --Glyph of Honor
-        [225338] = {
-            { 268, 1463, 100780 }, --Glyph of Jab (Brewmaster)
-            { 269, 1463, 100780 }, --Glyph of Jab (Windwalker)
+        [232491] = {
+            { 268, 1464, 100780 }, --Glyph of Jab (B)
+            { 269, 1464, 100780 }, --Glyph of Jab (W)
         },
         [87885]  = {   0, 1028, 107428 }, --Glyph of Rising Tiger Kick
         [217595] = { 268, 1453, 387184 }, --Glyph of Weapons of Order
@@ -189,7 +199,6 @@ glyphData.Glyphs = {
         },
         [139435] = {   0, 1277, 131347 }, --Glyph of Fel Wings
         [139437] = {   0, 1279, 188501 }, --Glyph of Fel-Enemies
-        --[] = { 0, 1446, 391429 } --Glyph of Fodder to the Flame
         [139362] = {
             { 577, 1274, 178940 }, --Glyph of Mana Touched Souls (H)
             { 581, 1274, 204254 }, --Glyph of Mana Touched Souls (V)
@@ -204,7 +213,7 @@ glyphData.Glyphs = {
     },
 }
 
-glyphData.Barbershop = {
+addon.Barbershop = {
     --[itemID] = { questID, spellID }
     [9] = { --Warlock
         [139314] = { 76370, 219460 }, --Grimoire of the Abyssal

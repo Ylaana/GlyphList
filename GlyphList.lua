@@ -1,5 +1,5 @@
-local _, glyphData = ...
-local L = glyphData.L
+local addonName, addon = ...
+local L = addon.L
 
 local GL_NAME = "|cff26cacfGlyphList|r"
 local GL_TAB_COUNT = 2;
@@ -41,7 +41,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
             local isActive
 
             if wait[itemID] then
-                local glyphID = glyphData.Glyphs[playerClassID][itemID][2]
+                local glyphID = addon.Glyphs[playerClassID][itemID][2]
                 isActive = FindValueInArray(glyphedSpells, glyphID)
                 glyphList[#glyphList + 1] = {
                     itemID = itemID,
@@ -159,7 +159,7 @@ local function GetConflicts()
     local conf = {}
 
     --build conflicts list
-    for itemID, glyphInfo in pairs(glyphData.Glyphs[playerClassID]) do
+    for itemID, glyphInfo in pairs(addon.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
             for _, gInfo in pairs(glyphInfo) do
                 local actionID = gInfo[3]
@@ -262,7 +262,7 @@ end
 
 local function CreateGlyphList()
     glyphList = {}
-    for itemID, glyphInfo in pairs(glyphData.Glyphs[playerClassID]) do
+    for itemID, glyphInfo in pairs(addon.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
             for _, gInfo in pairs(glyphInfo) do
                 local data = BuildGlyphData(itemID, gInfo)
@@ -415,17 +415,17 @@ function GlyphListMixin:OnEvent(event, ...)
         self:RefreshLayout()
     elseif event == "UNIT_SPELLCAST_SUCCEEDED" and arg1 == "player" then
         if IsUnlock(arg3) then
-            unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+            unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
             self:ChangeTab(GL_TAB_CLASS)
         end
     elseif event == "RECEIVED_ACHIEVEMENT_LIST" then
-        unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+        unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
         self:ChangeTab(GL_TAB_CLASS)
     elseif event == "PLAYER_LOGIN" then
         local next = next
         if isDruid then
             if Druid == nil or next(Druid) == nil then
-                unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+                unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
             else
                 unlockedItems = Druid
             end
@@ -434,7 +434,7 @@ function GlyphListMixin:OnEvent(event, ...)
             PanelTemplates_SetNumTabs(self, 2);
         elseif isWarlock then
             if Warlock == nil or next(Warlock) == nil then
-                unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+                unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
             else
                 unlockedItems = Warlock
             end
@@ -569,7 +569,7 @@ local function handler(msg, editBox)
     elseif msg == "refresh" then
         GlyphListFrame:ChangeTab(GL_TAB_GLYPHS)
         if isDruid or isWarlock then
-            unlockedItems = GetCompletedQuests(glyphData.Barbershop[playerClassID])
+            unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
         end
     end
 end

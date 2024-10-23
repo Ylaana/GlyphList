@@ -1,4 +1,4 @@
-local _, glyphData = ...
+local addonName, addon = ...
 
 local L = setmetatable({}, {
     __index = function(t, k)
@@ -8,7 +8,7 @@ local L = setmetatable({}, {
     end
 })
 
-glyphData.L = L
+addon.L = L
 
 local LOCALE = GetLocale()
 
