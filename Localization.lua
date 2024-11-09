@@ -13,13 +13,13 @@ addon.L = L
 local LOCALE = GetLocale()
 
 if LOCALE == "enUS" then
-    -- The EU English game client also
-    -- uses the US English locale code.
+    -- The EU English game client also uses the US English locale code.
     --L["GLYPHS"] = "Glyphs"
     L["MARKS"] = "Marks"
     L["GRIMOIRES"] = "Grimoires"
     L["VIEW_ALL"] = "View all"
     L["REFRESH_MSG"] = "Finished loading, please click Refresh"
+    L["NO_GLYPHS"] = "No glyphs found!"
     return
 end
 
@@ -30,6 +30,7 @@ if LOCALE == "deDE" then
     L["GRIMOIRES"] = "Grimoires"
     L["VIEW_ALL"] = "Alles anzeigen"
     L["REFRESH_MSG"] = "Fertig geladen, bitte Aktualisieren"
+    L["NO_GLYPHS"] = "Keine Glyphen gefunden!"
     return
 end
 
@@ -40,6 +41,7 @@ if LOCALE == "esES" or LOCALE == "esMX" then
     L["GRIMOIRES"] = "Grimorios"
     L["VIEW_ALL"] = "Ver todos"
     L["REFRESH_MSG"] = "Terminado de cargar, por favor haga clic en Actualizar"
+    L["NO_GLYPHS"] = "¡No se han encontrado glifos!"
     return
 end
 
@@ -50,6 +52,7 @@ if LOCALE == "frFR" then
     L["GRIMOIRES"] = "Grimoires"
     L["VIEW_ALL"] = "Voir tout"
     L["REFRESH_MSG"] = "Chargement terminé, veuillez Actualiser"
+    L["NO_GLYPHS"] = "Aucun glyphe trouvé !"
     return
 end
 
@@ -60,6 +63,7 @@ if LOCALE == "itIT" then
     L["GRIMOIRES"] = "Riti"
     L["VIEW_ALL"] = "Visualizza tutto"
     L["REFRESH_MSG"] = "Caricamento terminato, fare clic su Aggiorna"
+    L["NO_GLYPHS"] = "Nessun glifo trovato!"
     return
 end
 
@@ -72,6 +76,7 @@ if LOCALE == "ptBR" then
     L["GRIMOIRES"] = "Grimórios"
     L["VIEW_ALL"] = "Visualizar tudo"
     L["REFRESH_MSG"] = "Carregamento concluído, por favor clique Atualizar"
+    L["NO_GLYPHS"] = "Nenhum glifo encontrado!"
     return
 end
 
@@ -82,6 +87,7 @@ if LOCALE == "ruRU" then
     L["GRIMOIRES"] = "Гримуары"
     L["VIEW_ALL"] = "Посмотреть все"
     L["REFRESH_MSG"] = "Завершена загрузка, пожалуйста, нажмите Обновить"
+    L["NO_GLYPHS"] = "Символы не найдены!"
     return
 end
 
@@ -92,6 +98,7 @@ if LOCALE == "koKR" then
     L["GRIMOIRES"] = "흑마법서"
     L["VIEW_ALL"] = "전체 보기"
     L["REFRESH_MSG"] = "로드를 마쳤습니다. 새로 고침을 클릭하십시오."
+    L["NO_GLYPHS"] = "문양들 찾을 수 없습니다!"
     return
 end
 
@@ -102,6 +109,7 @@ if LOCALE == "zhCN" then
     L["GRIMOIRES"] = "魔典"
     L["VIEW_ALL"] = "查看所有"
     L["REFRESH_MSG"] = "已完成加载，请点击刷新键"
+    L["NO_GLYPHS"] = "没有找到雕文！"
     return
 end
 
@@ -112,5 +120,6 @@ if LOCALE == "zhTW" then
     L["GRIMOIRES"] = "魔典"
     L["VIEW_ALL"] = "檢視全部"
     L["REFRESH_MSG"] = "已完成加載，請點擊刷新鍵"
+    L["NO_GLYPHS"] = "沒有找到雕文！"
     return
 end

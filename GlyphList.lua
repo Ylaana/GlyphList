@@ -37,7 +37,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
     if event == "GET_ITEM_INFO_RECEIVED" then
         local itemID = ...
         if wait[itemID] or wait2[itemID] then
-            local itemName, itemLink = GetItemInfo(itemID)
+            local itemName, itemLink = C_Item.GetItemInfo(itemID)
             local isActive
 
             if wait[itemID] then
@@ -45,7 +45,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
                 isActive = FindValueInArray(glyphedSpells, glyphID)
                 glyphList[#glyphList + 1] = {
                     itemID = itemID,
-                    itemIcon = GetItemIcon(itemID),
+                    itemIcon = C_Item.GetItemIconByID(itemID),
                     itemName = itemName,
                     itemLink = itemLink,
                     isActive = isActive
@@ -57,7 +57,7 @@ cache_writer:SetScript("OnEvent", function(self, event, ...)
                     isActive = unlockedItems[itemID][2]
                     classList[#classList + 1] = {
                         itemID = itemID,
-                        itemIcon = GetItemIcon(itemID),
+                        itemIcon = C_Item.GetItemIconByID(itemID),
                         itemName = itemName,
                         itemLink = itemLink,
                         isActive = isActive
@@ -157,6 +157,7 @@ end
 
 local function GetConflicts()
     local conf = {}
+    if (addon.Glyphs[playerClassID] == nil) then return conf end
 
     --build conflicts list
     for itemID, glyphInfo in pairs(addon.Glyphs[playerClassID]) do
@@ -193,12 +194,12 @@ local function BuildClassData(itemID, classInfo)
     -- quest/achievement ID = classInfo[1]
     local completed = classInfo[2]
 
-    local itemName, itemLink = GetItemInfo(itemID)
+    local itemName, itemLink = C_Item.GetItemInfo(itemID)
     if itemName then
         local isActive = completed
         local classItem = {
             itemID = itemID,
-            itemIcon = GetItemIcon(itemID),
+            itemIcon = C_Item.GetItemIconByID(itemID),
             itemName = itemName,
             itemLink = itemLink,
             isActive = isActive
@@ -223,12 +224,12 @@ local function BuildGlyphData(itemID, glyphInfo)
 
     --glyphSpecID == 0 if the glyph can be used by all specs
     if (glyphSpecID == 0 or glyphSpecID == playerSpecID) and isAvailable then
-        local itemName, itemLink = GetItemInfo(itemID)
+        local itemName, itemLink = C_Item.GetItemInfo(itemID)
         if itemName then
             local isActive = FindValueInArray(glyphedSpells, glyphID)
             local glyphItem = {
                 itemID = itemID,
-                itemIcon = GetItemIcon(itemID),
+                itemIcon = C_Item.GetItemIconByID(itemID),
                 itemName = itemName,
                 itemLink = itemLink,
                 isActive = isActive
@@ -262,6 +263,8 @@ end
 
 local function CreateGlyphList()
     glyphList = {}
+    if (addon.Glyphs[playerClassID] == nil) then return glyphList end
+
     for itemID, glyphInfo in pairs(addon.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
             for _, gInfo in pairs(glyphInfo) do
