@@ -110,6 +110,7 @@ addon.Glyphs = {
     },
     [8] = { --Mage
         --62 Arcane, 63 Fire, 64 Frost
+        [232521] = {  62, 1465,   1459 }, --Glyph of Arcane Familiar
         [42751]  = {   0,  328,    118 }, --Glyph of Crittermorph
         [167539] = {   0, 1410,   1459 }, --Glyph of Dalaran Brilliance
         [104105] = {  64, 1080,  31687 }, --Glyph of Evaporation
