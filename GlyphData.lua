@@ -53,6 +53,10 @@ addon.Glyphs = {
         [217598] = { 261, 1459, 384631 }, --Glyph of Flagellation
         [129020] = {   0, 1271,   1725 }, --Glyph of Flash Bang
         [217583] = {   0, 1458, 385408 }, --Glyph of Sepsis
+        [234246] = { 260, 1469, 185763 }, --Glyph of the Admiral's Pistol Shot
+        [234245] = { 260, 1468, 185763 }, --Glyph of the Ashvane Pistol Shot
+        [234247] = { 260, 1471, 185763 }, --Glyph of the Gilded Pistol Shot
+        [234248] = { 260, 1472, 185763 }, --Glyph of the Twilight Pistol Shot
     },
     [5] = { --Priest
         --256 Discipline, 257 Holy, 258 Shadow
@@ -93,9 +97,9 @@ addon.Glyphs = {
         [104127] = {   0, 1091,   2008 }, --Glyph of Lingering Ancestors
         [137288] = {   0, 1243, 198103 }, --Glyph of Pebbles
         [217599] = {
-            { 262, 1460, 375982 }, --Glyph of Primordial Wave (Elemental)
-            { 263, 1460, 375982 }, --Glyph of Primordial Wave (Enhancement)
-            { 264, 1460, 428332 }, --Glyph of Primordial Wave (Restoration)
+            { 262, 1460, 375982 }, --Glyph of Primordial Wave (Ele)
+            { 263, 1460, 375982 }, --Glyph of Primordial Wave (Enh)
+            { 264, 1460, 428332 }, --Glyph of Primordial Wave (R)
         },
         [104126] = { 263, 1090,  51533 }, --Glyph of Spirit Raptors
         [190378] = {   0, 1426,   2645 }, --Glyph of the Spectral Lupine
@@ -145,8 +149,8 @@ addon.Glyphs = {
         [129022] = {   0, 1263, 117952 }, --Glyph of Crackling Ox Lightning
         [87881]  = {   0, 1045, 117952 }, --Glyph of Crackling Tiger Lightning
         [217494] = {
-            { 270, 1443, 388193 }, --Glyph of Faeline Stomp (Mistweaver)
-            { 269, 1443, 388193 }, --Glyph of Faeline Stomp (Windwalker)
+            { 270, 1443, 388193 }, --Glyph of Faeline Stomp (M)
+            { 269, 1443, 388193 }, --Glyph of Faeline Stomp (W)
         },
         [87888]  = {   0, 1041, 101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039, 322109 }, --Glyph of Honor
@@ -162,26 +166,26 @@ addon.Glyphs = {
         --102 Balance, 103 Feral, 104 Guardian, 105 Restoration
         --Note: Glyph of the Forest Path DOES NOT work with Tiger Dash
         [217592] = {
-            { 103, 1449, 391888 }, --Glyph of Adaptive Swarm (Feral)
-            { 105, 1449, 391888 }, --Glyph of Adaptive Swarm (Restoration)
+            { 103, 1449, 391888 }, --Glyph of Adaptive Swarm (F)
+            { 105, 1449, 391888 }, --Glyph of Adaptive Swarm (R)
         },
         [136826] = { 105, 1221,  33763 }, --Glyph of Autumnal Bloom
         [217585] = {   0, 1448, 391528 }, --Glyph of Convoke the Spirits
         [44922]  = {
-            { 102,  613,  24858 }, --Glyph of Stars (Balance)
-            { 103,  613, 197625 }, --Glyph of Stars (Balance Affinity)
-            { 104,  613, 197625 }, --Glyph of Stars (Balance Affinity)
-            { 105,  613, 197625 }, --Glyph of Stars (Balance Affinity)
+            { 102,  613,  24858 }, --Glyph of Stars (B)
+            { 103,  613, 197625 }, --Glyph of Stars (B Aff)
+            { 104,  613, 197625 }, --Glyph of Stars (B Aff)
+            { 105,  613, 197625 }, --Glyph of Stars (B Aff)
         },
         [184100] = {   0, 1421, 276029 }, --Glyph of the Aerial Chameleon
         [184097] = {   0, 1420, 276012 }, --Glyph of the Aquatic Chameleon
         [136825] = {   0, 1220,    768 }, --Glyph of the Feral Chameleon
         [139278] = {   0, 1252,   1850 }, --Glyph of the Forest Path
         [211400] = {
-            { 102, 1441,  24858 }, --Glyph of the Lunar Chameleon (Balance)
-            { 103, 1441, 197625 }, --Glyph of the Lunar Chameleon (Balance Affinity)
-            { 104, 1441, 197625 }, --Glyph of the Lunar Chameleon (Balance Affinity)
-            { 105, 1441, 197625 }, --Glyph of the Lunar Chameleon (Balance Affinity)
+            { 102, 1441,  24858 }, --Glyph of the Lunar Chameleon (B)
+            { 103, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
+            { 104, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
+            { 105, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
         },
         [118061] = { 102, 1206, 191034 }, --Glyph of the Sun
         [184096] = {   0, 1419,    783 }, --Glyph of the Swift Chameleon
