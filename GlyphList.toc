@@ -1,8 +1,22 @@
-## Interface: 110007
+## X-Curse-Project-ID: 523236
+## X-WoWI-ID: 26875
+## X-Wago-ID: 56n9kmN9
+## Interface: 110105
 ## Title: GlyphList
 ## Notes: A list of available glyphs and appearance unlocks for your class
 ## Author: Ylaana
-## Version: v1.4.12
+## Version: v1.4.13
+## Category-enUS: Collections
+## Category-deDE: Kriegsmeutesammlungen
+## Category-esES: Colecciones de banda guerrera
+## Category-esMX: Colecciones de tropa
+## Category-frFR: Collections du bataillon
+## Category-itIT: Collezioni della Brigata
+## Category-koKR: 전투부대 수집품
+## Category-ptBR: Coleções do Bando de Guerra
+## Category-ruRU: Коллекции отряда
+## Category-zhCN: 战团藏品
+## Category-zhTW: 戰隊收藏
 ## IconTexture: Interface\AddOns\GlyphList\textures\logo-square
 ## SavedVariablesPerCharacter: AddonShown, ShowAllGlyphs
 ## SavedVariables: Druid, Warlock
