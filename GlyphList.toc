@@ -1,11 +1,11 @@
-## X-Curse-Project-ID: 523236
-## X-WoWI-ID: 26875
-## X-Wago-ID: 56n9kmN9
-## Interface: 110105
+## Interface: 110107
 ## Title: GlyphList
 ## Notes: A list of available glyphs and appearance unlocks for your class
 ## Author: Ylaana
-## Version: v1.4.13
+## Version: v1.4.14
+## X-Curse-Project-ID: 523236
+## X-WoWI-ID: 26875
+## X-Wago-ID: 56n9kmN9
 ## Category-enUS: Collections
 ## Category-deDE: Kriegsmeutesammlungen
 ## Category-esES: Colecciones de banda guerrera
