@@ -18,6 +18,26 @@ local glyphedSpells = {}
 local conflicts = {}
 local unlockedItems = {}
 
+local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("GlyphList", {
+    type = "data source",
+    text = "GlyphList",
+    icon = "Interface\\AddOns\\GlyphList\\textures\\logo-round.blp", -- Path to your icon
+    OnClick = function(self, button)
+        if button == "LeftButton" then
+            GlyphListFrame:SetShown(not GlyphListFrame:IsShown())
+        end
+    end,
+    OnTooltipShow = function(tooltip)
+        tooltip:AddLine("GlyphList")
+        tooltip:AddLine("Left-click to toggle")
+    end,
+})
+
+local icon = LibStub("LibDBIcon-1.0")
+GlyphListDB = GlyphListDB or {}
+GlyphListDB.minimap = GlyphListDB.minimap or { hide = false }
+icon:Register("GlyphList", ldb, GlyphListDB.minimap)
+
 local function FindValueInArray(tab, val)
     if (#tab > 0) then
         for i = 1, #tab do
