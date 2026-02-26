@@ -1,0 +1,32 @@
+name: Package and release # description of this workflow, can be anything you want
+
+# triggers when pushing a tag
+on:
+  push:
+    tags:
+      - '**'
+
+jobs:  
+  release: # "release" is a job, you can name it anything you want
+    runs-on: ubuntu-latest
+  
+    env:
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+      WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
+      # for github releases, this secret is automatically provided to the workflow
+      # this must be explicitly configured with read-write permissions on the repository
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+      
+      # "steps" holds a list of all the steps needed to package and release our AddOn
+    steps:
+
+      # we first have to clone the AddOn project, this is a required step
+      - name: Clone project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # gets entire git history, needed for automatic changelogs
+
+      # once cloned, we just run the GitHub Action
+      - name: Package and release
+        uses: BigWigsMods/packager@v2
