@@ -8,15 +8,16 @@ local GL_TAB_CLASS = 2;
 
 local glyphList = {}
 local classList = {}
-local playerLoc = PlayerLocation:CreateFromUnit("player")
-local _, _, playerClassID = C_PlayerInfo.GetClass(playerLoc)
-local playerSpecID = 0
-local isDruid = playerClassID == 11
-local isWarlock = playerClassID == 9
 local activeSpells = {}
 local glyphedSpells = {}
 local conflicts = {}
 local unlockedItems = {}
+
+local location = PlayerLocation:CreateFromUnit("player")
+local playerClassID = select(3, C_PlayerInfo.GetClass(location))
+local playerSpecID = 0
+local isDruid = playerClassID == 11
+local isWarlock = playerClassID == 9
 
 local ldb = LibStub("LibDataBroker-1.1"):NewDataObject("GlyphList", {
     type = "data source",
@@ -38,16 +39,44 @@ GlyphListDB = GlyphListDB or {}
 GlyphListDB.minimap = GlyphListDB.minimap or { hide = false }
 icon:Register("GlyphList", ldb, GlyphListDB.minimap)
 
-local function FindValueInArray(tab, val)
-    if (#tab > 0) then
-        for i = 1, #tab do
-            if val == tab[i] then
-                return true
-            end
-        end
+local function FindValueInArray(tbl, item)
+    for _, value in pairs(tbl) do
+        if value == item then return true end
     end
     return false
 end
+
+local function OnTooltipSetItem(self, itemLink)
+    local itemID = GetItemInfoFromHyperlink(itemLink)
+    --insert warning for removed spells/abilities
+    local tbl = {
+         43398, --Deep Wounds (spell ID changed)
+        217583, --Sepsis
+        217586, --Radiant Spark
+        217588, --Blessing of the Seasons
+        217592, --Adaptive Swarm
+        217593, --Death Chakram
+        217594, --Shifting Power
+        217595, --Weapons of Order
+        217596, --Abomination Limb (spell ID changed)
+        217598, --Flagellation
+        217599, --Primordial Wave
+        217600, --Soul Rot
+    }
+    if FindValueInArray(tbl, itemID) then
+        self:AddLine("\n|cffff4800"..L["SPELL_REMOVED"])
+    end
+end
+
+TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(self)
+    local itemLink; do
+        local ttInfo = self:GetProcessingTooltipInfo();
+        local ttData = ttInfo and ttInfo.tooltipData;
+        itemLink = ttData and (ttData.guid and C_Item.GetItemLinkByGUID(ttData.guid) or ttData.hyperlink);
+    end
+ 
+    if itemLink then OnTooltipSetItem(self, itemLink); end
+end)
 
 local wait = {}
 local wait2 = {}
@@ -105,9 +134,9 @@ function GetTableLength(T)
 end
 
 local function GetCurrentSpec()
-    local currentSpec = GetSpecialization()
+    local currentSpec = C_SpecializationInfo.GetSpecialization()
     if currentSpec then
-        local currentSpecID, currentSpecName = GetSpecializationInfo(currentSpec)
+        local currentSpecID, currentSpecName = C_SpecializationInfo.GetSpecializationInfo(currentSpec)
         playerSpecID = currentSpecID
         local className = select(7, GetSpecializationInfoByID(currentSpecID))
         return currentSpecName .. " " .. className
@@ -140,19 +169,10 @@ local function GetGlyphInfo()
                     end
                 else
                     if IsSpellKnown(actionID) then
-                        local spellLink
-                        --exception for icy veins which now summons water elemental
-                        if playerClassID == 8 and actionID == 12472 then
-                            --spell ID for summon water elemental (not in spellbook)
-                            local spellID = 31687
-                            spellLink = C_Spell.GetSpellLink(spellID)
-                            availableSpells[#availableSpells + 1] = spellID
-                        else
-                            spellLink = C_SpellBook.GetSpellBookItemLink(j, Enum.SpellBookSpellBank.Player)
-                            availableSpells[#availableSpells + 1] = actionID
-                        end
-
+                        local spellLink = C_SpellBook.GetSpellBookItemLink(j, Enum.SpellBookSpellBank.Player)
                         local glyphID = spellLink and tonumber(spellLink:match("%b::(%d+)")) or 0
+                        availableSpells[#availableSpells + 1] = actionID
+                        
                         if glyphID ~= 0 then
                             appliedGlyphs[#appliedGlyphs + 1] = glyphID
                         end
@@ -287,11 +307,20 @@ local function CreateGlyphList()
 
     for itemID, glyphInfo in pairs(addon.Glyphs[playerClassID]) do
         if type(glyphInfo[1]) == "table" then
+            local dupl = {}
             for _, gInfo in pairs(glyphInfo) do
                 local data = BuildGlyphData(itemID, gInfo)
                 if data ~= nil then
-                    glyphList[#glyphList + 1] = data
+                    --remove duplicate glyph entries from the view all list
+                    dupl[itemID] = data
+                    --check for active glyph slot and save status
+                    if data["isActive"] == true then
+                        dupl[itemID]["isActive"] = true
+                    end
                 end
+            end
+            if dupl[itemID] ~= nil then
+                glyphList[#glyphList + 1] = dupl[itemID]
             end
         else
             local data = BuildGlyphData(itemID, glyphInfo)
@@ -369,7 +398,7 @@ function GlyphListMixin:OnLoad()
         end
         self.GlyphListFrameTab2:Show()
     else
-        --hide class tab
+        --hide tab 2
         PanelTemplates_SetNumTabs(self, 1);
     end
 
@@ -445,6 +474,13 @@ function GlyphListMixin:OnEvent(event, ...)
         unlockedItems = GetCompletedQuests(addon.Barbershop[playerClassID])
         self:ChangeTab(GL_TAB_CLASS)
     elseif event == "PLAYER_LOGIN" then
+        if playerClassID == nil then
+            location = PlayerLocation:CreateFromUnit("player")
+            playerClassID = select(3, C_PlayerInfo.GetClass(location))
+            isDruid = playerClassID == 11
+            isWarlock = playerClassID == 9
+        end
+
         local next = next
         if isDruid then
             if Druid == nil or next(Druid) == nil then

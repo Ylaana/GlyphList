@@ -7,25 +7,40 @@ addon.Glyphs = {
         [80588]  = {  72,  991,  184361 }, --Glyph of Burning Anger
         [141898] = {   0, 1286,    6544 }, --Glyph of Falling Thunder
         [43398]  = {  73,  486,  115768 }, --Glyph of Gushing Wound
-        [80587]  = {   0,  990,  163201 }, --Glyph of Hawk Feast
+        [80587]  = {                       --Glyph of Hawk Feast
+            {  72,  990,   5308 },
+            {  71,  990, 281000 },
+            {   0,  990, 280735 }, --<35% health
+            {  73,  990, 163201 },
+        },
         [43400]  = {   0,  488,   34428 }, --Glyph of Mighty Victory
         [217584] = {   0, 1444,  376079 }, --Glyph of Spear of Bastion
         [137188] = {   0, 1223,    3411 }, --Glyph of the Blazing Savior
         [85221]  = {   0, 1020,     100 }, --Glyph of the Blazing Trail
         [203763] = {   0, 1432,   57755 }, --Glyph of the Heaved Armament
         [104138] = {  72, 1101,    1719 }, --Glyph of the Weaponmaster
-        [49084]  = {  73,  851,    6343 }, --Glyph of Thunder Strike
+        [49084]  = {   0,  851,    6343 }, --Glyph of Thunder Strike
     },
     [2] = { --Paladin
         --65 Holy, 66 Protection, 70 Retribution
         [217588] = {  65, 1455,  388007 }, --Glyph of Blessing of the Seasons
         [217587] = {   0, 1454,  375576 }, --Glyph of Divine Toll
-        [43369]  = {   0,  457,   20271 }, --Glyph of Fire From the Heavens
+        [43369]  = {                       --Glyph of Fire From the Heavens
+            {  70,  457,  20271 },
+            {  65,  457, 275773 },
+            {  66,  457, 275779 },
+        },
         [104108] = {  65, 1083,   20473 }, --Glyph of Pillar of Light
         [41100]  = {   0,  190,   32223 }, --Glyph of the Luminous Charger
-        [137293] = {  66, 1245,   86659 }, --Glyph of the Queen
+        [137293] = {                       --Glyph of the Queen
+            {  66, 1245,   86659 }, --King
+            {  66, 1245,  212641 }, --Queen
+        },
         [143588] = {   0, 1287,  190784 }, --Glyph of the Trusted Steed
-        [43366]  = {   0,  454,   31884 }, --Glyph of Winged Vengeance
+        [43366]  = {                       --Glyph of Winged Vengeance
+            {   0,  454,  31884 }, --Avenging Wrath
+            {  70,  454, 458359 }, --Radiant Glory
+        },
         [153177] = {   0, 1306,  190784 }, --Golden Charger's Bridle
         [153174] = {   0, 1303,  190784 }, --Valorous Charger's Bridle
         [153175] = {   0, 1304,  190784 }, --Vengeful Charger's Bridle
@@ -33,13 +48,19 @@ addon.Glyphs = {
     },
     [3] = { --Hunter
         --253 Beast Mastery, 254 Marksmanship, 255 Survival
-        [137249] = { 253, 1234,  120679 }, --Glyph of Arachnophobia
+        [137249] = { 253, 1234,   53270 }, --Glyph of Arachnophobia
         [217593] = {   0, 1450,  375891 }, --Glyph of Death Chakram
-        [170173] = { 253, 1415,  120679 }, --Glyph of Dire Bees
-        [43350]  = {   0,  440,     883 }, --Glyph of Lesser Proportion
-        [137250] = { 253, 1235,  120679 }, --Glyph of Nesingwary's Nemeses
+        [170173] = { 253, 1415,   53270 }, --Glyph of Dire Bees
+        [43350]  = {                       --Glyph of Lesser Proportion
+            {   0,  440,    883 }, --Call Pet 1
+            {   0,  440,  83242 }, --Call Pet 2
+            {   0,  440,  83243 }, --Call Pet 3
+            {   0,  440,  83244 }, --Call Pet 4
+            {   0,  440,  83245 }, --Call Pet 5
+        },
+        [137250] = { 253, 1235,   53270 }, --Glyph of Nesingwary's Nemeses
         [137269] = {   0, 1239,    1543 }, --Glyph of Stellar Flare
-        [139288] = { 253, 1253,  120679 }, --Glyph of the Dire Stable
+        [139288] = { 253, 1253,   53270 }, --Glyph of the Dire Stable
         [137267] = {   0, 1238,    1543 }, --Glyph of the Goblin Anti-Grav Flare
         [137239] = { 255, 1231,  190925 }, --Glyph of the Hook
         [243051] = { 254, 1473, 1219616 }, --Glyph of the Strix
@@ -53,7 +74,7 @@ addon.Glyphs = {
         [217597] = {   0, 1457,  385616 }, --Glyph of Echoing Reprimand
         [217598] = { 261, 1459,  384631 }, --Glyph of Flagellation
         [129020] = {   0, 1271,    1725 }, --Glyph of Flash Bang
-        [217583] = {   0, 1458,  385408 }, --Glyph of Sepsis
+        [217583] = { 261, 1458,  385408 }, --Glyph of Sepsis
         [234246] = { 260, 1469,  185763 }, --Glyph of the Admiral's Pistol Shot
         [234245] = { 260, 1468,  185763 }, --Glyph of the Ashvane Pistol Shot
         [234247] = { 260, 1471,  185763 }, --Glyph of the Gilded Pistol Shot
@@ -61,30 +82,64 @@ addon.Glyphs = {
     },
     [5] = { --Priest
         --256 Discipline, 257 Holy, 258 Shadow
-        [149755] = { 257, 1084,   77485 }, --Glyph of Angels
+        [149755] = { 257, 1295,   77485 }, --Glyph of Angels
         [153036] = { 256, 1302,   47540 }, --Glyph of Dark Absolution
         [129017] = {   0, 1270,     586 }, --Glyph of Ghostly Fade
         [104122] = { 257, 1087,   64843 }, --Glyph of Inspired Hymns
-        [217589] = {   0, 1456,  375901 }, --Glyph of Mindgames
+        [217589] = {                       --Glyph of Mindgames
+            {   256, 1456,  375901 },
+            {   258, 1456,  375901 },
+        },
         [43373]  = {   0,  461,    9484 }, --Glyph of Shackle Undead
         [77101]  = { 258,  961,  232698 }, --Glyph of Shadow
         [87392]  = { 258, 1052,  232698 }, --Glyph of Shadowy Friends
         [79538]  = {   0, 1007,    1706 }, --Glyph of the Heavens
-        [153031] = { 256, 1299,   34433 }, --Glyph of the Lightspawn
-        [104120] = {   0, 1085,   34433 }, --Glyph of the Sha
+        [153031] = {                       --Glyph of the Lightspawn
+            { 256, 1299,   34433 }, --Shadowfiend
+            --{ 257, 1299,   34433 }, --Shadowfiend
+            { 256, 1299,  132603 }, --Sha-ling
+            --{ 257, 1299,  132603 }, --Sha-ling
+            { 256, 1299,  254224 }, --Lightspawn
+            --{ 257, 1299,  254224 }, --Lightspawn
+            { 256, 1299,  254232 }, --Voidling
+            --{ 257, 1299,  254232 }, --Voidling
+        },
+        [104120] = {                       --Glyph of the Sha
+            { 256, 1085,   34433 }, --Shadowfiend
+            { 258, 1085,   34433 }, --Shadowfiend
+            { 256, 1085,  132603 }, --Sha-ling
+            { 258, 1085,  132603 }, --Sha-ling
+            { 256, 1085,  254224 }, --Lightspawn
+            { 258, 1085,  254224 }, --Lightspawn
+            { 256, 1085,  254232 }, --Voidling
+            { 258, 1085,  254232 }, --Voidling
+        },
         [207088] = { 258, 1439,  228260 }, --Glyph of the Shath'Yar
         [87277]  = { 257, 1049,   20711 }, --Glyph of the Val'kyr
-        [153033] = { 258, 1301,   34433 }, --Glyph of the Voidling
+        [153033] = {                       --Glyph of the Voidling
+            { 258, 1301,   34433 }, --Shadowfiend
+            { 258, 1301,  132603 }, --Sha-ling
+            { 258, 1301,  254224 }, --Lightspawn
+            { 258, 1301,  254232 }, --Voidling
+        },
     },
     [6] = { --Death Knight
         --250 Blood, 251 Frost, 252 Unholy
-        [217596] = {   0, 1462,  383269 }, --Glyph of Abomination Limb
+        [217596] = { 250, 1462,  383269 }, --Glyph of Abomination Limb
         [137274] = {   0, 1240,    3714 }, --Glyph of Cracked Ice
         [43551]  = { 252,  529,   42650 }, --Glyph of Foul Menagerie
         [139271] = {   0, 1247,   48707 }, --Glyph of the Chilled Shell
         [139270] = {   0, 1246,   48707 }, --Glyph of the Crimson Shell
-        [43535]  = {   0,  514,   46585 }, --Glyph of the Geist
-        [104099] = {   0, 1074,   46585 }, --Glyph of the Skeleton
+        [43535]  = {                       --Glyph of the Geist
+            { 252,  514,  46584 }, --Unholy specific
+            { 250,  514,  46585 }, 
+            { 251,  514,  46585 }, 
+        },
+        [104099] = {                       --Glyph of the Skeleton
+            { 252, 1074,  46584 }, --Unholy specific
+            { 250, 1074,  46585 }, 
+            { 251, 1074,  46585 }, 
+        },
     },
     [7] = { --Shaman
         --262 Elemental, 263 Enhancement, 264 Restoration
@@ -92,7 +147,7 @@ addon.Glyphs = {
         [232622] = {
             { 262, 1467, 114050 }, --Glyph of Energetic Ascendance (Ele)
             { 263, 1467, 114051 }, --Glyph of Energetic Ascendance (Enh)
-            { 264, 1467, 114052 }, --Glyph of Energetic Ascendance (R)
+            { 264, 1467, 114052 }, --Glyph of Energetic Ascendance (Res)
         },
         [137289] = { 262, 1244,  198067 }, --Glyph of Flickering
         [104127] = {   0, 1091,    2008 }, --Glyph of Lingering Ancestors
@@ -100,9 +155,9 @@ addon.Glyphs = {
         [217599] = {
             { 262, 1460, 375982 }, --Glyph of Primordial Wave (Ele)
             { 263, 1460, 375982 }, --Glyph of Primordial Wave (Enh)
-            { 264, 1460, 428332 }, --Glyph of Primordial Wave (R)
+            { 264, 1460, 428332 }, --Glyph of Primordial Wave (Res)
         },
-        [104126] = { 263, 1090,   51533 }, --Glyph of Spirit Raptors
+        [104126] = { 263, 1090,  469314 }, --Glyph of Spirit Raptors
         [190378] = {   0, 1426,    2645 }, --Glyph of the Spectral Lupine
         [137287] = {   0, 1242,    2645 }, --Glyph of the Spectral Raptor
         [190380] = {   0, 1427,    2645 }, --Glyph of the Spectral Vulpine
@@ -110,7 +165,7 @@ addon.Glyphs = {
         [232527] = {
             { 262, 1466, 114050 }, --Glyph of Traditional Ascendance (Ele)
             { 263, 1466, 114051 }, --Glyph of Traditional Ascendance (Enh)
-            { 264, 1466, 114052 }, --Glyph of Traditional Ascendance (R)
+            { 264, 1466, 114052 }, --Glyph of Traditional Ascendance (Res)
         },
     },
     [8] = { --Mage
@@ -142,52 +197,47 @@ addon.Glyphs = {
         [151540] = {   0, 1297,  246985 }, --Glyph of Floating Shards
         [217600] = { 265, 1461,  386997 }, --Glyph of Soul Rot
         [43394]  = {   0,  482,   29893 }, --Glyph of Soulwell
-        [137191] = {   0, 1224,     126 }, --Glyph of the Inquisitor's Eye
+        [137191] = {                       --Glyph of the Inquisitor's Eye
+            {   0, 1224,     126 }, --Eye of Kilrogg
+            {   0, 1224,  211898 }, --Inquisitor's Eye
+        },
     },
     [10] = { --Monk
         --268 Brewmaster, 269 Windwalker, 270 Mistweaver
         [139338] = {   0, 1264,  117952 }, --Glyph of Crackling Crane Lightning
         [129022] = {   0, 1263,  117952 }, --Glyph of Crackling Ox Lightning
         [87881]  = {   0, 1045,  117952 }, --Glyph of Crackling Tiger Lightning
-        [217494] = {
-            { 270, 1443, 388193 }, --Glyph of Faeline Stomp (M)
-            { 269, 1443, 388193 }, --Glyph of Faeline Stomp (W)
+        [217494] = {                       --Glyph of Faeline Stomp
+            { 269, 1443, 388193 },
+            { 270, 1443, 388193 },
         },
         [87888]  = {   0, 1041,  101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039,  322109 }, --Glyph of Honor
-        [232491] = {
-            { 268, 1464, 100780 }, --Glyph of Jab (B)
-            { 269, 1464, 100780 }, --Glyph of Jab (W)
+        [232491] = {                       --Glyph of Jab
+            { 268, 1464, 100780 },
+            { 269, 1464, 100780 },
         },
-        [87885]  = {   0, 1028,  107428 }, --Glyph of Rising Tiger Kick
+        [87885]  = {                       --Glyph of Rising Tiger Kick
+            { 269, 1028, 107428 },
+            { 270, 1028, 107428 },
+        },
         [217595] = { 268, 1453,  387184 }, --Glyph of Weapons of Order
         [139339] = { 268, 1265,  124502 }, --Glyph of Yu'lon's Grace
     },
     [11] = { --Druid
         --102 Balance, 103 Feral, 104 Guardian, 105 Restoration
-        --Note: Glyph of the Forest Path DOES NOT work with Tiger Dash
-        [217592] = {
-            { 103, 1449, 391888 }, --Glyph of Adaptive Swarm (F)
-            { 105, 1449, 391888 }, --Glyph of Adaptive Swarm (R)
+        [217592] = {                       --Glyph of Adaptive Swarm
+            { 103, 1449, 391888 },
+            { 105, 1449, 391888 },
         },
         [136826] = { 105, 1221,   33763 }, --Glyph of Autumnal Bloom
         [217585] = {   0, 1448,  391528 }, --Glyph of Convoke the Spirits
-        [44922]  = {
-            { 102,  613,  24858 }, --Glyph of Stars (B)
-            { 103,  613, 197625 }, --Glyph of Stars (B Aff)
-            { 104,  613, 197625 }, --Glyph of Stars (B Aff)
-            { 105,  613, 197625 }, --Glyph of Stars (B Aff)
-        },
+        [44922]  = {   0,  613,   24858 }, --Glyph of Stars
         [184100] = {   0, 1421,  276029 }, --Glyph of the Aerial Chameleon
         [184097] = {   0, 1420,  276012 }, --Glyph of the Aquatic Chameleon
         [136825] = {   0, 1220,     768 }, --Glyph of the Feral Chameleon
         [139278] = {   0, 1252,    1850 }, --Glyph of the Forest Path
-        [211400] = {
-            { 102, 1441,  24858 }, --Glyph of the Lunar Chameleon (B)
-            { 103, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
-            { 104, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
-            { 105, 1441, 197625 }, --Glyph of the Lunar Chameleon (B Aff)
-        },
+        [211400] = {   0, 1441,   24858 }, --Glyph of the Lunar Chameleon
         [118061] = { 102, 1206,  191034 }, --Glyph of the Sun
         [184096] = {   0, 1419,     783 }, --Glyph of the Swift Chameleon
         [43334]  = {   0,  432,    5487 }, --Glyph of the Ursol Chameleon
@@ -195,28 +245,29 @@ addon.Glyphs = {
         [143750] = { 105, 1288,   33763 }, --Glyph of Twilight Bloom
     },
     [12] = { --Demon Hunter
-        --577 Havoc, 581 Vengeance
+        --577 Havoc, 581 Vengeance, 1480 Devourer
         [129029] = {   0, 1275,  258920 }, --Glyph of Crackling Flames
         [217591] = {   0, 1447,  390163 }, --Glyph of Elysian Decree
         [139417] = {   0, 1276,  131347 }, --Glyph of Fallow Wings
-        [129028] = {
-            { 577, 1273, 178940 }, --Glyph of Fel Touched Souls (H)
-            { 581, 1273, 204254 }, --Glyph of Fel Touched Souls (V)
+        [129028] = {                       --Glyph of Fel Touched Souls
+            { 577, 1273, 178940 },
+            { 581, 1273, 204254 },
         },
         [139435] = {   0, 1277,  131347 }, --Glyph of Fel Wings
         [139437] = {   0, 1279,  188501 }, --Glyph of Fel-Enemies
-        [139362] = {
-            { 577, 1274, 178940 }, --Glyph of Mana Touched Souls (H)
-            { 581, 1274, 204254 }, --Glyph of Mana Touched Souls (V)
+        [139362] = {                       --Glyph of Mana Touched Souls
+            { 577, 1274, 178940 },
+            { 581, 1274, 204254 },
         },
         [139438] = {   0, 1280,  188501 }, --Glyph of Shadow-Enemies
         [139436] = {   0, 1278,  131347 }, --Glyph of Tattered Wings
-        [203762] = {
-            { 577, 1431, 185123 }, --Glyph of the Chosen Glaive (H)
-            { 581, 1431, 204157 }, --Glyph of the Chosen Glaive (V)
+        [203762] = {                       --Glyph of the Chosen Glaive
+            { 577, 1431, 185123 },
+            { 581, 1431, 204157 },
         },
         [217590] = {   0, 1445,  370965 }, --Glyph of the Hunt
     },
+    --[13] EVOKER 1467 Devastation, 1468 Preservation, 1473 Augmentation
 }
 
 addon.Barbershop = {

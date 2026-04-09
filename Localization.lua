@@ -20,6 +20,7 @@ if LOCALE == "enUS" then
     L["VIEW_ALL"] = "View all"
     L["REFRESH_MSG"] = "Finished loading, please click Refresh"
     L["NO_GLYPHS"] = "No glyphs found!"
+    L["SPELL_REMOVED"] = "Warning: Spell or ability no longer exists."
     return
 end
 
@@ -31,6 +32,7 @@ if LOCALE == "deDE" then
     L["VIEW_ALL"] = "Alles anzeigen"
     L["REFRESH_MSG"] = "Fertig geladen, bitte Aktualisieren"
     L["NO_GLYPHS"] = "Keine Glyphen gefunden!"
+    L["SPELL_REMOVED"] = "Warnung: Zauber oder Fähigkeit existiert nicht länger."
     return
 end
 
@@ -42,6 +44,7 @@ if LOCALE == "esES" or LOCALE == "esMX" then
     L["VIEW_ALL"] = "Ver todos"
     L["REFRESH_MSG"] = "Terminado de cargar, por favor haga clic en Actualizar"
     L["NO_GLYPHS"] = "¡No se han encontrado glifos!"
+    L["SPELL_REMOVED"] = "Advertencia: El hechizo o facultad ya no existe."
     return
 end
 
@@ -52,7 +55,8 @@ if LOCALE == "frFR" then
     L["GRIMOIRES"] = "Grimoires"
     L["VIEW_ALL"] = "Voir tout"
     L["REFRESH_MSG"] = "Chargement terminé, veuillez Actualiser"
-    L["NO_GLYPHS"] = "Aucun glyphe trouvé !"
+    L["NO_GLYPHS"] = "Aucun glyphe trouvé !"
+    L["SPELL_REMOVED"] = "Avertissement : Ce sort ou cette technique n'existe plus."
     return
 end
 
@@ -64,6 +68,7 @@ if LOCALE == "itIT" then
     L["VIEW_ALL"] = "Visualizza tutto"
     L["REFRESH_MSG"] = "Caricamento terminato, fare clic su Aggiorna"
     L["NO_GLYPHS"] = "Nessun glifo trovato!"
+    L["SPELL_REMOVED"] = "Attenzione: L'incantesimo o l'abilità non esiste più."
     return
 end
 
@@ -77,6 +82,7 @@ if LOCALE == "ptBR" then
     L["VIEW_ALL"] = "Visualizar tudo"
     L["REFRESH_MSG"] = "Carregamento concluído, por favor clique Atualizar"
     L["NO_GLYPHS"] = "Nenhum glifo encontrado!"
+    L["SPELL_REMOVED"] = "Aviso: O feitiço ou habilidade não existe mais."
     return
 end
 
@@ -88,6 +94,7 @@ if LOCALE == "ruRU" then
     L["VIEW_ALL"] = "Посмотреть все"
     L["REFRESH_MSG"] = "Завершена загрузка, пожалуйста, нажмите Обновить"
     L["NO_GLYPHS"] = "Символы не найдены!"
+    L["SPELL_REMOVED"] = "Предупреждение: Заклинание или способность больше не существует."
     return
 end
 
@@ -99,6 +106,7 @@ if LOCALE == "koKR" then
     L["VIEW_ALL"] = "전체 보기"
     L["REFRESH_MSG"] = "로드를 마쳤습니다. 새로 고침을 클릭하십시오."
     L["NO_GLYPHS"] = "문양들 찾을 수 없습니다!"
+    L["SPELL_REMOVED"] = "경고: 주문이나 능력은 더 이상 존재하지 않습니다."
     return
 end
 
@@ -110,6 +118,7 @@ if LOCALE == "zhCN" then
     L["VIEW_ALL"] = "查看所有"
     L["REFRESH_MSG"] = "已完成加载，请点击刷新键"
     L["NO_GLYPHS"] = "没有找到雕文！"
+    L["SPELL_REMOVED"] = "警告：此法术或技能不再存在。"
     return
 end
 
@@ -121,5 +130,6 @@ if LOCALE == "zhTW" then
     L["VIEW_ALL"] = "檢視全部"
     L["REFRESH_MSG"] = "已完成加載，請點擊刷新鍵"
     L["NO_GLYPHS"] = "沒有找到雕文！"
+    L["SPELL_REMOVED"] = "警告：此法術或技能不再存在。"
     return
 end

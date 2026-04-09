@@ -1,7 +1,9 @@
 # GlyphList
 A WoW addon that displays a list of available glyphs and appearance unlocks for your class.
 
-The addon shows a list of glyphs for your class, and highlights the ones that are known for the active spec.
+The addon shows a list of glyphs for your class, and highlights the ones that are active for your current spec.
+
+**NOTE: Since 11.0, Blizzard have removed a number of spells and abilities without also removing the associated glyphs. This will now be indicated with a warning in the tooltip of the affected items.** If any of the localised text contains errors, please leave a comment with the correct translation or create a ticket on my GitHub project page.
 
 Druids will be able to see a second tab that displays Marks which, when learned, unlock shapeshift appearances in the barbershop. Warlocks will see a tab for Grimoires which unlock appearances for their demons in the barbershop. All of these are account-wide and also highlighted if known.
 
@@ -17,7 +19,7 @@ Glyphs are initially displayed depending on whether the associated spells or abi
 
 Please bear in mind that the list highlights glyphs for the active spec *only*. If you have glyphed a certain spell in one spec and then switch to another spec where that spell (if available) is not glyphed, the highlighting is removed.
 
-Shift + left click can be used to link any listed glyph/mark in chat.
+Shift + left click can be used to link any listed item in chat.
 
 Use /gl or /glyphlist to toggle list visibility.
 Commands: /gl (show|hide|refresh)

@@ -1,0 +1,59 @@
+Removed spell references/glyphs or unexpected glyph behaviour
+
+
+PropsID     SpellID     Reason
+=========================================================================================================================================
+278         112870      REMOVED: Wrathguard appearances are now part of the Felguard customisations
+483         1719        REMOVED: Glyph of Battle
+486         115768      NOT WORKING: Deep Wounds now has a different spell ID
+488         34428       WARNING: Does not work with the Impending Victory talent active
+522         57330       REMOVED: Glyph of Horn of Winter
+613         197625      REMOVED: Balance Affinity
+989         20271       REMOVED: Glyph of Bladed Judgment
+1048        2006        REMOVED: Glyph of Holy Resurrection
+1051        185987      REMOVED: Glyph of Marking
+1081        31687       REMOVED: Glyph of Condensation
+1084        2050        Incorrectly references Glyph of Angels
+1215        114050      REMOVED: Glyph of Ascendance (Elemental)
+1215        114051      REMOVED: Glyph of Ascendance (Enhancement)
+1215        114052      REMOVED: Glyph of Ascendance (Restoration)
+1222        20271       REMOVED: Glyph of Bladed Judgment
+1225        126         REMOVED: Glyph of the Demon Eye
+1226        186065      REMOVED: Unknown glyph
+1227        186065      REMOVED: Unknown glyph
+1228        186065      REMOVED: Unknown glyph
+1229        186065      REMOVED: Unknown glyph
+1232        193265      REMOVED: Glyph of the Headhunter
+1233        187650      REMOVED: Unknown hunter glyph
+1236        185358      REMOVED: Unknown mage glyph
+1237        185987      REMOVED: Unknown glyph
+1241        3714        Glyph of Dry Ice never made it into the game
+1252        1850        WARNING: Does not work with the Tiger Dash talent active
+1262        197690      REMOVED: Unknown glyph
+1268        190740      REMOVED: Unknown mage glyph
+1281        130         REMOVED: Unknown mage glyph
+1282        1953        REMOVED: Unknown mage glyph
+1284        187827      Glyph of Fearsome Metamorphosis never made it into the game (Vengeance)
+1284        191427      Glyph of Fearsome Metamorphosis never made it into the game (Havoc)
+1289        49576       REMOVED: Unknown death knight glyph
+1290        49576       REMOVED: Unknown death knight glyph
+1300        34433       REMOVED: Glyph of Shadowfiend (shadowfiend)
+1300        132603      REMOVED: Glyph of Shadowfiend (sha-ling)
+1300        254224      REMOVED: Glyph of Shadowfiend (lightspawn)
+1300        254232      REMOVED: Glyph of Shadowfiend (voidling)
+1441        197625      REMOVED: Balance Affinity
+1446        391429      REMOVED: Glyph of Fodder to the Flame
+1449        391888      OBSOLETE: Adaptive Swarm was removed
+1450        375891      OBSOLETE: Death Chakram was removed
+1451        382440      OBSOLETE: Shifting Power was removed
+1452        376103      OBSOLETE: Radiant Spark was removed
+1453        387184      OBSOLETE: Weapons of Order was removed
+1455        388007      OBSOLETE: Blessing of the Seasons was removed
+1458        385408      OBSOLETE: Sepsis was removed
+1459        384631      OBSOLETE: Flagellation was removed
+1460        375982      OBSOLETE: Primordial Wave was removed (Ele, Enh)
+1460        428332      OBSOLETE: Primordial Wave was removed (Res)
+1461        386997      OBSOLETE: Soul Rot was removed
+1462        383269      NOT WORKING: Abomination Limb now has a different spell ID (renamed from Legion of Souls)
+1463        100780      REMOVED: Old version of Glyph of Jab
+1467        384352      Glyph of Energetic Ascendance can't be applied to Doom Winds
