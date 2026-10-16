@@ -32,6 +32,10 @@ addon.Glyphs = {
         },
         [104108] = {  65, 1083,   20473 }, --Glyph of Pillar of Light
         [41100]  = {   0,  190,   32223 }, --Glyph of the Luminous Charger
+        [284160] = {                       --Glyph of the Matriarch's Wings
+            {   0, 1476,   31884 }, --Avenging Wrath
+            {  70, 1476,  458359 }, --Radiant Glory
+        },
         [137293] = {                       --Glyph of the Queen
             {  66, 1245,   86659 }, --King
             {  66, 1245,  212641 }, --Queen
@@ -208,8 +212,8 @@ addon.Glyphs = {
         [129022] = {   0, 1263,  117952 }, --Glyph of Crackling Ox Lightning
         [87881]  = {   0, 1045,  117952 }, --Glyph of Crackling Tiger Lightning
         [217494] = {                       --Glyph of Faeline Stomp
-            { 269, 1443, 388193 },
-            { 270, 1443, 388193 },
+            { 269, 1443, 457974 },
+            { 270, 1443, 1268807 },
         },
         [87888]  = {   0, 1041,  101643 }, --Glyph of Fighting Pose
         [87883]  = {   0, 1039,  322109 }, --Glyph of Honor
